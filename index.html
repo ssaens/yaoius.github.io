@@ -2,23 +2,33 @@
 <html>
     <head>
         <title>Dillon Yao</title>
+        <link rel='stylesheet' type='text/css' href='css/base.css'>
     </head>
 
     <body>
-        <nav>
+        
+        <nav class='navbar' id='navbar'>
         <ul>
             <li><a href="#">Home</a></li>
             <li><a href="#">Resume</a></li>
-            <li><a href="#">Projects</a></li>
+            <li class='dropdown'>
+                <a href="#" class='dropbtn'>Projects</a></li>
+                <div class='dropdown_content'>
+                    <a href='#'>c</a>
+                    <a href='#'>java</a>
+                    <a href='#'>python</a>
+                </div>
             <li><a href="#">About</a></li>
         </ul>
         </nav>
-        <div class="container">
+        
+        <div class="container" id='main_body'>
     		<div class="blurb">
         		<h1>Test Page Don't Upvote</h1>
 				<p>Test paragraph</p>
     		</div>
 		</div>
+        
 		<footer>
     		<ul>
         		<li><a href="mailto:dilong.yao@gmail.com">email</a></li>
