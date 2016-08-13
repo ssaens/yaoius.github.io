@@ -1,121 +1,137 @@
-/* ==General */
-body {
-    background-color: black;
-    background-image: url('../img/test_background.jpg');
-    background-attachment: fixed;
-    background-size: cover;
-/*    -webkit-filter: blur(5px);*/
+/* ==General== */
+html, body {
+    margin: 0;
+    padding: 0;
 }
 
-/* ==Background */
+/* ==Background== */
 
 
-/* ==Headers */
-h1 {
-    color: white;
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    font-style: normal;
-    font-weight: normal;
-}
+/* ==Headers== */
 
-/* ==Nav */
-.navbar {
-    top: 0px;
-    left: 0px;
+
+/* ==Nav== */
+nav {
     background-color: black;
-    width: 100%;
-    height: 10%;
+    display: block;
     position: fixed;
-    border-bottom: 1px solid #bbb;
+    height: 60px;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
 }
 
-    .navbar ul {
-        width: 1000px;
-        text-align: center;
+    nav ul {
         list-style-type: none;
-        margin: 0 auto; 
-        overflow: hidden;
-        padding: 0px;
-        vertical-align: bottom;
-        bottom: 0;
-    }
-
-    .navbar li {
-        border-right: 1px solid #bbb;
-        display: inline-block;
-    }
-
-    .navbar li:last-child {
-        border-right: none;
-    }
-
-    .navbar li a, .dropbtn {
-        color: white;
-        display: inline-block;
-        padding: 8px;
-        text-align: center;
-        text-decoration: none;
-    }
-
-    .navbar li a:hover, .dropdown:hover .dropbtn {
-        background-color: red;
-    }
-
-    .navbar li.dropdown {
-        display: inline-block;
-    }
-
-    .navbar .dropdown_content {
-        display: none;
         position: absolute;
-        min-width: 160px;
-        background-color: #f9f9f9;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 0%);
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
     }
 
-    .navbar .dropdown_content a {
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-        text-align: left;
+        nav ul:last-child {
+            border-right: 1px solid #fff;
+        }
+
+        nav ul li {
+            float: left;
+            display: table;
+            height: inherit;
+            border-left: 1px solid #fff;
+        }
+
+        nav ul li a {
+            color: white;
+            font-size: 1.2em;
+            display: table-cell;
+            height: 100%;
+            padding: 0px 15px;
+            text-align: center;
+            text-decoration: none;
+            vertical-align: middle;
+        }
+
+        nav ul li a:hover {
+            background-color: darkgrey;
+        }
+
+    .tooltip .tooltiptext {
+        display: none;
     }
 
-    .navbar .dropdown_content a:hover {
-        background-color: green
+    .tooltip:hover .tooltiptext {
+
     }
 
-    .navbar .dropdown:hover .dropdown_content {
-        display: block;
+/* ==Intro Image== */
+#intro_image {
+    position: fixed;
+    top: 0;
+    z-index: -1;
+}
+
+    #intro_name {
+        position: absolute;
+        left: 0;
+        top: 70%;
+        width: 100%;
+        text-align: center;
+        font-size: 25px;
     }
 
-    .active {
-        background-color: red;
+    #intro_logo {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 100%;
+        text-align: center;
     }
 
-/* ==Content */
-#content {
-    padding-top: 5%;
+    #background {
+        width: 100%;
+        height: 600px;
+        opacity: 0.7;
+        -webkit-filter: blur(4px);
+    }
+    
+
+/* ==Content== */
+.content {
+    display: block;    
 }
 
 .container {
-    margin: auto;
-    border: 10 10 10 10;
-    width: 80%
+    margin: 0px;
+    padding: 0% 2%;
 }
-    .container p {
-        color: darkgray;
+
+#about {
+    background-color: beige;
+    margin-top: 600px;
+    padding: 20px 5px;
+}
+
+    #about p, h1 {
+        margin: 0;
     }
 
-#main_body {
-    margin: 10 10 30 30
-}
-
 #test_text {
-    background-color: black;
+    background-color: burlywood;
+    margin: 0;
+    padding: 20px 5px;
 }
 
-/* ==Footer */
+    #test_text p {
+        margin: 0;
+    }
 
-/* ==Test */
 
+/* ==Footer== */
+
+
+/* ==Test== */
