@@ -15,31 +15,31 @@
                 <a href="#">
                     <i class="fa fa-home fa-2x" aria-hidden="true"></i>
                 </a>
-                <span class="tooltiptext">Home</span>
+                <span class="tooltiptext">home</span>
             </li>
             <li class='tooltip'>
-                <a href="#">
+                <a href="#about" onclick='scroll_to()'>
                     <i class="fa fa-user fa-2x" aria-hidden="true"></i>
                 </a>
-                <span class="tooltiptext">About</span>
+                <span class="tooltiptext">about</span>
             </li>
             <li class='tooltip'>
-                <a href="#">
-                    <i class="fa fa-file-text fa-2x" style="font-size: 1.7em" aria-hidden="true"></i>
+                <a href="#resume" onclick='scroll_to()'>
+                    <i class="fa fa-file-text fa-2x" aria-hidden="true"></i>
                 </a>
-                <span class="tooltiptext">Resume</span>
+                <span class="tooltiptext">resume</span>
             </li>
             <li class='tooltip'>
-                <a href="#">
+                <a href="#projects">
                 <i class="fa fa-terminal fa-2x" aria-hidden="true"></i>
                 </a>
-                <span class="tooltiptext">Projects</span>
+                <span class="tooltiptext">projects</span>
             </li>
             <li class='tooltip'>
-                <a href="#">
-                <i class="fa fa-paper-plane fa-2x" style="font-size: 1.6em" aria-hidden="true"></i>
+                <a href="#contact">
+                <i class="fa fa-paper-plane fa-2x" aria-hidden="true"></i>
                 </a>
-                <span class="tooltiptext">Contact</span>
+                <span class="tooltiptext">contant</span>
             </li>
         </ul>
         </nav>
@@ -48,34 +48,84 @@
             <div id='background'></div>
             <img id='intro_logo' src='#'>
             <div id='intro_name'>Dillon Yao</div>
+            <div id='photo_cred'>PC: Akira Kashiwagura</div>
         </div>
         
         <div class='content'>
-        
             
-
-            <div id='about'>
-                <div class='container'>
-                    <div id=about_header>
+            <div name='about' class='nav_target' id='about'>
+                <div class='container'> 
+                    <div class='col headshot'>
+                        <img src='img/me_about.jpg'>
+                    </div>
+                    <div class='col blurb'>
+                        <p>Welcome to my site! I am currently an EECS major at UC Berkeley, learning about the magical art of creating software and the hardware that supports it. When I'm not infront of a screen, I enjoy picking up new skills (like learning to making this website), indulging in music (both making and listening), and the many, happy quirks of life.</p>
+                    </div>
+                    <div class='col section_header'>
                         <h1>About</h1>
                     </div>
-                    <div class="blurb">
-                        <p>Test paragraph Test Text Test paragraph</p>
+                </div>
+            </div>
+            
+            <div name='resume' class='nav_target' id='resume'>
+                
+                <div class='container'>
+                    <div class='section_header'>
+                        <h1>Resume</h1>
+                    </div>  
+                    <div class='resume_section'>
+                        <div class='col resume_header'>
+                            Education
+                        </div>
+                        <div class='col resume_data'>
+                            <div class='resume_entry'>
+                                <div class='entry_main'>
+                                    <h3>University of California, Berkeley</h3>
+                                    <p>Sophomore in Electrical Engineering and Computer Science</p>
+                                </div>
+                                <div class='entry_time'>
+                                    <p>2015 - present</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='resume_section'>
+                        <div class='col resume_header'>
+                            Experience
+                        </div>
+                        <div class='col resume_data'>
+                            <div class='resume_entry'>
+                                <div class='entry_main'>
+
+                                </div>
+                                <div class='entry_time'>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='resume_section'>
+                        <div class='col resume_header'>
+                            Honors
+                        </div>
+                        <div class='col resume_data'>
+                            <div class='entry_main'>
+
+                            </div>
+                            <div class='entry_time'>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             
-            <div id='resume'>
-                <div class='container'>
-                </div>
-            </div>
-            
-            <div id='projects'>
+            <div name='projects' class='nav_target' id='projects'>
                 <div class='container'>
                 </div>
             </div>
 
-            <div id='contact'>
+            <div name='contact' class='nav_target' id='contact'>
                 <div class='container'>
                 </div>
             </div>
@@ -134,19 +184,35 @@
             </div>
         
 		<footer>
-            <div class='logo_container'>
-                <img src=''>
-            </div>
-            <div class='social_media_links'>
-                <ul>
-                    <li><a href="mailto:dilong.yao@gmail.com">email</a></li>
-                    <li><a href="https://github.com/yaoius">github.com/yaoius</a></li>
-                </ul>
+            <div class='container'>
+                <div class='logo_container'>
+                    <img src=''>
+                </div>
+                <div class='social_media_links'>
+                    <ul>
+                        <li>
+                            <a href="mailto:dilong.yao@gmail.com" onclick=>
+                              <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li> 
+                            <a href="https://github.com/yaoius">
+                                <i class="fa fa-github fa-2x" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href=''>
+                                <i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
 		</footer>
             
         
     <script src='js/intro_image_scroll.js'></script>
+    <script src='js/target_scroll.js'></script>
     <script type='text/javascript'>
         jQuery(document).ready(function() {
             jQuery(document).scroll(distort_background);
