@@ -58,15 +58,14 @@ nav {
             color: white;
             width: 32px;
             padding: 15px;
+            transition: 0.5s;
         }
 
         nav ul li a:hover {
             color: #6f0d0d;
             background-color: white;
-        }
-
-        nav ul li a.active {
-
+            width: 2.5em;
+            transition: 0.5s;
         }
 
     .tooltip .tooltiptext {
