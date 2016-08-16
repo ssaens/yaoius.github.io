@@ -8,9 +8,11 @@
 //// Then:
 //element_to_scroll_to.scrollIntoView();
 
-function scroll_to() {
-    var offset = $(':target').offset();
-    console.log($(':target').offset())
-    var scrollto = offset.top - 62;
-    $('html, body').animate({scrollTop:scrollto}, 0);
+function scroll_to(id) {
+    var scrollto = 0;
+    if (id != undefined) {
+        var offset = $(id).offset();
+        scrollto = offset.top - 64;
+    }
+    $('html, body').animate({scrollTop:scrollto}, 400);
 }

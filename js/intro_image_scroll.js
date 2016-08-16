@@ -5,6 +5,6 @@ function distort_background() {
     var blur = 'blur(' + Math.round(scroll_ratio * 10) + 'px)';
     var grayscale = 'grayscale(' + Math.floor((1 - scroll_ratio) * 100) + '%)';
     var new_filter = blur + ' ' + grayscale;
-    console.log(new_filter);
+    console.log('Scroll pos: '+scroll_pos);
     jQuery('#background').css('-webkit-filter', new_filter);
 }

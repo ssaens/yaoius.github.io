@@ -2,6 +2,7 @@
 html, body, div, p, h1, h2, h3, h4, a {
     margin: 0;
     padding: 0;
+    font-weight: normal;
 }
 
 div {
@@ -9,14 +10,21 @@ div {
     display: block;
 }
 
-/* ==Headers== */
 ::selection {
-    
+    background-color: #ddd;
+    color: #6f0d0d;
 }
 
 ::-moz-selection {
     
 }
+
+/* ==Headers== */
+
+.section_header {
+    width: auto;
+}
+
 
 /* ==Nav== */
 nav {
@@ -64,8 +72,8 @@ nav {
         nav ul li a:hover {
             color: #6f0d0d;
             background-color: white;
-            width: 2.5em;
             transition: 0.5s;
+            opacity: 0.99;
         }
 
     .tooltip .tooltiptext {
@@ -133,9 +141,10 @@ nav {
 #about, #resume, #projects, #contact, footer {
     position: relative;
     z-index: 5;
-    padding: 40px 0px;
-    border-bottom: 2px solid #6f0d0d;
-    box-shadow: 0 5px 10px 3px #888;
+    padding: 60px 0px;
+/*    border-bottom: 2px solid #6f0d0d;*/
+    border-bottom: 2px solid black;
+    box-shadow: 0 0 30px 2px #222222;
 }
 
 .container {
@@ -159,10 +168,12 @@ nav {
 #about {
     background-color: #333333;
     z-index: 6;
-    border-top: 2px solid grey;
+    box-shadow: 0 5px 30px #222222;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
 }
 
-    #about p, #about h1 {
+    #about p {
         font-family:  Verdana, Geneva, sans-serif;	
         font-weight: 200;
         line-height: 2.5em;
@@ -171,10 +182,6 @@ nav {
 
     #about .blurb {
         width: 60%;
-    }
-
-    #about .section_header {
-        width: 20%;
     }
 
     #about .headshot {
@@ -190,8 +197,12 @@ nav {
 /* ==Resume== */
 
 #resume {
-    background-color: white;
+    background-color: #6f0d0d;
 }
+
+    #resume h3, p {
+        font-weight: 100;
+    }
 
     .resume_section {
         overflow: auto;
@@ -201,22 +212,45 @@ nav {
     }
 
     .resume_header {
-        
-    }
-
-    .resume_data {
-        padding-left: 20px;
-        border-left: 1px solid grey;
+        color: #bbb;
+        width: 10%;
     }
 
     .resume_entry {
-        
+        max-width: 400px;
+        padding-left: 20px;
+        border-left: 1px solid grey;
+        width: 55%;
     }
+
+    .entry_main {
+        float: left;
+    }
+
+        .entry_main h3 {
+            font-style: italic;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .entry_main p {
+            color: #212;
+        }
+
+    .entry_time {
+        float: right;
+        margin-right: 0;
+        padding-top: 3px;
+    }
+
+        .entry_time p {
+            color: #bbb;
+        }
 
 /* ==Projects ==*/
 
 #projects {
-    background-color: #6f0d0d;
+    background-color: white;
     z-index: 6;
 }
 
