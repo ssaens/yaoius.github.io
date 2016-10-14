@@ -75,10 +75,14 @@ header {
     }
 
     nav {
+        position: fixed;
         border: 2px solid orange;
         border-radius: 50px;
         overflow: auto;
-        float: right;
+        right: 15px;
+        top: 15px;
+        z-index: 100;
+        background-color: #1a1e24;
     }
 
     nav ul {
@@ -186,6 +190,7 @@ header {
     #scroll_icon:hover {
         color: white;
         transition: 0.5s;
+        cursor: s-resize;
     }
 
 
@@ -201,18 +206,18 @@ header {
 }
 
     #works_header .parallax {
-        background-image: url('../imgs/desktop.jpg');
+        background-image: url('../imgs/desktop_m.jpg');
     }
 
     #python_header {
-        border-top: 1px solid white;
+        border-top: 2px solid white;
         overflow: hidden;
     }
 
         #python_header .parallax {
-            background-image: url('../imgs/python_img.png');
-            fiter: blur(2px);
-                -webkit-filter: blur(2px);
+            background-image: url('../imgs/python_img_m.png');
+            fiter: blur(1px);
+                -webkit-filter: blur(1px);
             height: 100px;
             transition: 0.3s;
         }
@@ -230,14 +235,14 @@ header {
         }
 
     #java_header {
-        border-top: 1px solid white;
+        border-top: 2px solid white;
         overflow: hidden;
     }
 
         #java_header .parallax {
-            background-image: url('../imgs/java_img.png');
-            fiter: blur(2px);
-                -webkit-filter: blur(2px);
+            background-image: url('../imgs/java_img_m.png');
+            fiter: blur(1px);
+                -webkit-filter: blur(1px);
             height: 100px;
             transition: 0.3s;
         }
@@ -255,15 +260,15 @@ header {
         }
 
     #c_header {
-        border-top: 1px solid white;
-        border-bottom: 1px solid white;
+        border-top: 2px solid white;
+        border-bottom: 2px solid white;
         overflow: hidden;
     }
 
         #c_header .parallax {
-            background-image: url('../imgs/c_img.png');
-            fiter: blur(2px);
-                -webkit-filter: blur(2px);
+            background-image: url('../imgs/c_img_m.png');
+            fiter: blur(1px);
+                -webkit-filter: blur(1px);
             height: 100px;
             transition: 0.3s;
         }
