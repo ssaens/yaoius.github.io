@@ -22,7 +22,7 @@ a, a:visited {
 
 .section {
     overflow: auto;
-    background-color: grey;
+    background-color: white;
 }
 
 .band {
@@ -39,7 +39,7 @@ a, a:visited {
 
 .container {
     overflow: auto;
-    margin: 0 10%;
+    margin: 0 20%;
 }
 
 .header_text {
@@ -51,6 +51,10 @@ a, a:visited {
     background-color: rgba(0, 0, 0, 0.6);;
     font-size: 1.5em;
     color: white;
+}
+
+.expand {
+    cursor: pointer;
 }
 
 /* === NAVIGATION === */
@@ -196,8 +200,13 @@ header {
     background-color: #282C34;
 }
 
+    #works_header .parallax {
+        background-image: url('../imgs/desktop.jpg');
+    }
+
     #python_header {
-        border: 1px solid white;
+        border-top: 1px solid white;
+        overflow: hidden;
     }
 
         #python_header .parallax {
@@ -205,6 +214,7 @@ header {
             fiter: blur(2px);
                 -webkit-filter: blur(2px);
             height: 100px;
+            transition: 0.3s;
         }
 
         #python_header span {
@@ -220,8 +230,8 @@ header {
         }
 
     #java_header {
-        border: 1px solid white;
-        border-top: 0;
+        border-top: 1px solid white;
+        overflow: hidden;
     }
 
         #java_header .parallax {
@@ -229,6 +239,7 @@ header {
             fiter: blur(2px);
                 -webkit-filter: blur(2px);
             height: 100px;
+            transition: 0.3s;
         }
 
         #java_header span {
@@ -244,8 +255,9 @@ header {
         }
 
     #c_header {
-        border: 1px solid white;
-        border-top: 0;
+        border-top: 1px solid white;
+        border-bottom: 1px solid white;
+        overflow: hidden;
     }
 
         #c_header .parallax {
@@ -253,6 +265,7 @@ header {
             fiter: blur(2px);
                 -webkit-filter: blur(2px);
             height: 100px;
+            transition: 0.3s;
         }
 
         #c_header span {
