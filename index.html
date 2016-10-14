@@ -1,239 +1,148 @@
-<!DOCTYPE HTML>
 <html>
-    <head>
-        <title>Dillon Yao</title>
-        <link rel='stylesheet' type='text/css' href='css/main.css'>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-        <script src="https://use.fontawesome.com/d59afdec51.js"></script>
-        <script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-            ga('create', 'UA-82584700-1', 'auto');
-            ga('send', 'pageview');
+    <title>Dillon Yao</title>
+    <link rel='stylesheet' type='text/css' href='css/main.css'>
+    <script src="https://use.fontawesome.com/d59afdec51.js"></script>
+</head>
 
-        </script>
-    </head>
-
-    <body>
-        
-        <nav class='navbar' id='fixed_nav'>
-        <ul>
-            <li class='tooltip'>
-                <a onclick='scroll_to()'>
-                    <i class="fa fa-home fa-2x" aria-hidden="true"></i>
+<body>
+    <!--NAVIGATION-->
+    <div id='home'>
+        <header>
+            <div class='logo_container'>
+                <a id='logo' href='http://dillonyao.tk'>
+                    Site Logo
                 </a>
-                <span class="tooltiptext">home</span>
-            </li>
-            <li class='tooltip'>
-                <a onclick='scroll_to("#about")'>
-                    <i class="fa fa-user fa-2x" aria-hidden="true"></i>
-                </a>
-                <span class="tooltiptext">about</span>
-            </li>
-            <li class='tooltip'>
-                <a onclick='scroll_to("#resume")'>
-                    <i class="fa fa-file-text fa-2x" aria-hidden="true"></i>
-                </a>
-                <span class="tooltiptext">resume</span>
-            </li>
-            <li class='tooltip'>
-                <a onclick='scroll_to("#projects")'>
-                    <i class="fa fa-terminal fa-2x" aria-hidden="true"></i>
-                </a>
-                <span class="tooltiptext">projects</span>
-            </li>
-            <li class='tooltip'>
-                <a onclick='scroll_to("#contact")'>
-                    <i class="fa fa-paper-plane fa-2x" aria-hidden="true"></i>
-                </a>
-                <span class="tooltiptext">contact</span>
-            </li>
-        </ul>
-        </nav>
-        
-        <div id='intro_image'>
-            <div id='background'></div>
-            <img id='intro_logo' src='#'>
-            <div id='intro_name'>Dillon Yao</div>
-            <div id='photo_cred'>PC: Akira Kashiwagura</div>
-        </div>
-        
-        <div class='content'>
-            
-            <div name='about' class='nav_target' id='about'>
-                <div class='col section_header'>
-                        <h1>About</h1>
-                </div>
-                <div class='container'> 
-                    <div class='col headshot'>
-                        <img src='img/me_about.jpg'>
-                    </div>
-                    <div class='col blurb'>
-                        <p>Welcome to my site! I am currently an EECS major at UC Berkeley, learning about the magical art of creating software and the hardware that supports it. When I'm not infront of a screen, I enjoy picking up new skills (like learning to making this website), indulging in music (both making and listening), and the many, happy quirks of life.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div name='resume' class='nav_target' id='resume'>
-                <div class='col section_header'>
-                    <h1>Resume</h1>
-                </div>  
-                <div class='container'>
-                    <div class='resume_section'>
-                        <div class='col resume_header'>
-                            Education
-                        </div>
-                        <div class='col resume_entry'>
-                            <div class='entry_main'>
-                                <h3>University of California, Berkeley</h3>
-                                <p>Sophomore in Electrical Engineering and Computer Science</p>
-                            </div>
-                        </div>
-                        <div class='col entry_time'>
-                            <p>2015 - present</p>
-                        </div>
-                    </div>
-                    <div class='resume_section'>
-                        <div class='col resume_header'>
-                            Experience
-                        </div>
-                        <div class='col resume_data'>
-                            <div class='resume_entry'>
-                                <div class='entry_main'>
-
-                                </div>
-                                <div class='entry_time'>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class='resume_section'>
-                        <div class='col resume_header'>
-                            Honors
-                        </div>
-                        <div class='col resume_data'>
-                            <div class='entry_main'>
-
-                            </div>
-                            <div class='entry_time'>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div name='projects' class='nav_target' id='projects'>
-                <div class='col section_header'>
-                    <h1>Projects</h1>
-                </div> 
-                <div class='container'>
-                </div>
             </div>
 
-            <div name='contact' class='nav_target' id='contact'>
-                <div class='container'>
-                </div>
-            </div>
-            
-<!--
-            <div id='test_text'>
-                <div class='container'>
-                    <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis nisl orci. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris vel ante et dolor sollicitudin rhoncus. Nullam a nulla scelerisque, egestas lectus ut, condimentum est. Mauris egestas, neque in varius mollis, mi mauris pharetra arcu, eget vulputate leo ex eget velit. Donec molestie elit ac elementum laoreet. Praesent sit amet scelerisque nibh, a elementum massa. Nulla facilisi. Morbi interdum pharetra suscipit. Aliquam erat volutpat. Donec consequat condimentum ullamcorper.
-                    </p>
-                    <p>
-
-                    Vestibulum et efficitur nulla, sed vehicula ante. Cras euismod lectus id dui dictum, a tincidunt lacus maximus. Sed aliquam pellentesque quam ut fringilla. Pellentesque ligula mauris, placerat et tincidunt sed, interdum imperdiet ligula. Sed vitae ex ac neque pharetra suscipit eleifend quis nisi. Nullam eu vulputate leo, in sollicitudin tortor. Nunc ac ante libero. Aliquam vel commodo turpis. Nunc finibus congue nibh, in tincidunt lacus vulputate nec. Integer euismod malesuada mauris, sed consequat arcu faucibus nec. Donec viverra molestie interdum. Curabitur dictum, urna ac gravida luctus, turpis urna egestas sapien, ut laoreet tortor ligula quis dui. Morbi et libero ac dolor vestibulum molestie.
-                    </p>
-                    <p>
-                    Nunc non est sodales, posuere felis sed, auctor urna. Maecenas sit amet rutrum nulla, sit amet gravida velit. Nunc facilisis tincidunt urna, sed scelerisque ligula bibendum in. Fusce massa quam, mattis sed eros non, ultrices tempus arcu. Etiam placerat posuere nulla eget finibus. Vivamus tempor, ligula vel gravida commodo, ligula ex dapibus erat, eget ullamcorper enim justo rhoncus nisi. Pellentesque a metus sit amet sapien tincidunt tincidunt ac at eros. In interdum suscipit est id mattis. Maecenas at placerat ligula. Donec convallis ex sem, quis sollicitudin arcu accumsan ut. Morbi efficitur luctus urna, eu viverra dolor placerat eget. In hac habitasse platea dictumst. Praesent varius enim vel pulvinar elementum. Proin sit amet aliquet eros. Suspendisse eu vehicula lacus.
-                    </p>
-                    <p>
-                        Sed accumsan auctor quam vitae lobortis. Integer quis risus id nibh efficitur iaculis. Integer eget erat sit amet massa dignissim mollis ac non ante. Curabitur vitae eros blandit, mollis odio commodo, consequat risus. Phasellus nec dapibus metus. Praesent id ante aliquet, malesuada felis fermentum, tincidunt est. Nam aliquet lacinia pharetra. Nullam molestie aliquet purus, quis vulputate leo faucibus vel. Proin felis nisi, ultricies non turpis ut, gravida lobortis erat. Curabitur luctus augue ut turpis hendrerit commodo. Nullam dolor libero, vulputate a augue et, aliquam dapibus nunc. Sed vel nisi tristique, imperdiet dolor a, pharetra risus. Vestibulum nec ligula eget nisl consequat congue.
-                    </p>
-                    <p>
-                    Sed bibendum tempus fringilla. Nulla et dolor diam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce tincidunt, elit ut lobortis tincidunt, purus est commodo nunc, sed semper velit lacus sed nulla. Suspendisse potenti. Nulla id augue accumsan leo ultricies bibendum non vitae mauris. Proin dignissim felis eget enim vehicula, vel rhoncus quam accumsan. Integer scelerisque non augue ut gravida.
-                    </p>
-                    <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis nisl orci. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris vel ante et dolor sollicitudin rhoncus. Nullam a nulla scelerisque, egestas lectus ut, condimentum est. Mauris egestas, neque in varius mollis, mi mauris pharetra arcu, eget vulputate leo ex eget velit. Donec molestie elit ac elementum laoreet. Praesent sit amet scelerisque nibh, a elementum massa. Nulla facilisi. Morbi interdum pharetra suscipit. Aliquam erat volutpat. Donec consequat condimentum ullamcorper.
-                    </p>
-                    <p>
-
-                    Vestibulum et efficitur nulla, sed vehicula ante. Cras euismod lectus id dui dictum, a tincidunt lacus maximus. Sed aliquam pellentesque quam ut fringilla. Pellentesque ligula mauris, placerat et tincidunt sed, interdum imperdiet ligula. Sed vitae ex ac neque pharetra suscipit eleifend quis nisi. Nullam eu vulputate leo, in sollicitudin tortor. Nunc ac ante libero. Aliquam vel commodo turpis. Nunc finibus congue nibh, in tincidunt lacus vulputate nec. Integer euismod malesuada mauris, sed consequat arcu faucibus nec. Donec viverra molestie interdum. Curabitur dictum, urna ac gravida luctus, turpis urna egestas sapien, ut laoreet tortor ligula quis dui. Morbi et libero ac dolor vestibulum molestie.
-                    </p>
-                    <p>
-                    Nunc non est sodales, posuere felis sed, auctor urna. Maecenas sit amet rutrum nulla, sit amet gravida velit. Nunc facilisis tincidunt urna, sed scelerisque ligula bibendum in. Fusce massa quam, mattis sed eros non, ultrices tempus arcu. Etiam placerat posuere nulla eget finibus. Vivamus tempor, ligula vel gravida commodo, ligula ex dapibus erat, eget ullamcorper enim justo rhoncus nisi. Pellentesque a metus sit amet sapien tincidunt tincidunt ac at eros. In interdum suscipit est id mattis. Maecenas at placerat ligula. Donec convallis ex sem, quis sollicitudin arcu accumsan ut. Morbi efficitur luctus urna, eu viverra dolor placerat eget. In hac habitasse platea dictumst. Praesent varius enim vel pulvinar elementum. Proin sit amet aliquet eros. Suspendisse eu vehicula lacus.
-                    </p>
-                    <p>
-                        Sed accumsan auctor quam vitae lobortis. Integer quis risus id nibh efficitur iaculis. Integer eget erat sit amet massa dignissim mollis ac non ante. Curabitur vitae eros blandit, mollis odio commodo, consequat risus. Phasellus nec dapibus metus. Praesent id ante aliquet, malesuada felis fermentum, tincidunt est. Nam aliquet lacinia pharetra. Nullam molestie aliquet purus, quis vulputate leo faucibus vel. Proin felis nisi, ultricies non turpis ut, gravida lobortis erat. Curabitur luctus augue ut turpis hendrerit commodo. Nullam dolor libero, vulputate a augue et, aliquam dapibus nunc. Sed vel nisi tristique, imperdiet dolor a, pharetra risus. Vestibulum nec ligula eget nisl consequat congue.
-                    </p>
-                    <p>
-                    Sed bibendum tempus fringilla. Nulla et dolor diam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce tincidunt, elit ut lobortis tincidunt, purus est commodo nunc, sed semper velit lacus sed nulla. Suspendisse potenti. Nulla id augue accumsan leo ultricies bibendum non vitae mauris. Proin dignissim felis eget enim vehicula, vel rhoncus quam accumsan. Integer scelerisque non augue ut gravida.
-                    </p>
-                    <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis nisl orci. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris vel ante et dolor sollicitudin rhoncus. Nullam a nulla scelerisque, egestas lectus ut, condimentum est. Mauris egestas, neque in varius mollis, mi mauris pharetra arcu, eget vulputate leo ex eget velit. Donec molestie elit ac elementum laoreet. Praesent sit amet scelerisque nibh, a elementum massa. Nulla facilisi. Morbi interdum pharetra suscipit. Aliquam erat volutpat. Donec consequat condimentum ullamcorper.
-                    </p>
-                    <p>
-
-                    Vestibulum et efficitur nulla, sed vehicula ante. Cras euismod lectus id dui dictum, a tincidunt lacus maximus. Sed aliquam pellentesque quam ut fringilla. Pellentesque ligula mauris, placerat et tincidunt sed, interdum imperdiet ligula. Sed vitae ex ac neque pharetra suscipit eleifend quis nisi. Nullam eu vulputate leo, in sollicitudin tortor. Nunc ac ante libero. Aliquam vel commodo turpis. Nunc finibus congue nibh, in tincidunt lacus vulputate nec. Integer euismod malesuada mauris, sed consequat arcu faucibus nec. Donec viverra molestie interdum. Curabitur dictum, urna ac gravida luctus, turpis urna egestas sapien, ut laoreet tortor ligula quis dui. Morbi et libero ac dolor vestibulum molestie.
-                    </p>
-                    <p>
-                    Nunc non est sodales, posuere felis sed, auctor urna. Maecenas sit amet rutrum nulla, sit amet gravida velit. Nunc facilisis tincidunt urna, sed scelerisque ligula bibendum in. Fusce massa quam, mattis sed eros non, ultrices tempus arcu. Etiam placerat posuere nulla eget finibus. Vivamus tempor, ligula vel gravida commodo, ligula ex dapibus erat, eget ullamcorper enim justo rhoncus nisi. Pellentesque a metus sit amet sapien tincidunt tincidunt ac at eros. In interdum suscipit est id mattis. Maecenas at placerat ligula. Donec convallis ex sem, quis sollicitudin arcu accumsan ut. Morbi efficitur luctus urna, eu viverra dolor placerat eget. In hac habitasse platea dictumst. Praesent varius enim vel pulvinar elementum. Proin sit amet aliquet eros. Suspendisse eu vehicula lacus.
-                    </p>
-                    <p>
-                        Sed accumsan auctor quam vitae lobortis. Integer quis risus id nibh efficitur iaculis. Integer eget erat sit amet massa dignissim mollis ac non ante. Curabitur vitae eros blandit, mollis odio commodo, consequat risus. Phasellus nec dapibus metus. Praesent id ante aliquet, malesuada felis fermentum, tincidunt est. Nam aliquet lacinia pharetra. Nullam molestie aliquet purus, quis vulputate leo faucibus vel. Proin felis nisi, ultricies non turpis ut, gravida lobortis erat. Curabitur luctus augue ut turpis hendrerit commodo. Nullam dolor libero, vulputate a augue et, aliquam dapibus nunc. Sed vel nisi tristique, imperdiet dolor a, pharetra risus. Vestibulum nec ligula eget nisl consequat congue.
-                    </p>
-                    <p>
-                    Sed bibendum tempus fringilla. Nulla et dolor diam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce tincidunt, elit ut lobortis tincidunt, purus est commodo nunc, sed semper velit lacus sed nulla. Suspendisse potenti. Nulla id augue accumsan leo ultricies bibendum non vitae mauris. Proin dignissim felis eget enim vehicula, vel rhoncus quam accumsan. Integer scelerisque non augue ut gravida.
-                                        </p>
-                </div>
-            </div>
--->
-        
-		<footer>
-            <div class='container'>
-                <div class='logo_container'>
-                    <img src=''>
-                </div>
-                <div class='social_media_links'>
+            <nav>
+                <div class='navbar'>
                     <ul>
                         <li>
-                            <a href="mailto:dilong.yao@gmail.com" onclick=>
-                              <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+                            <a href='#'>Home</a>
+                        </li>
+                        <li>
+                            <a href='#about'>About</a>
+                        </li>
+                        <li>
+                            <a href='#resume'>Resume</a>
+                        </li>
+                        <li>
+                            <a href='#works'>Works</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <div id='shell'>
+            <ul class='shell_body'>
+                <li class='shell_input'>
+                    <span style='color: #ffed00'>from</span> humans <span style='color: #ffed00'>import</span> me
+                </li>
+                <li class='shell_input'>
+                    g = Greeting(welcome, me.get_name())
+                </li>
+                <li class='shell_input'>
+                    g.greet()
+                </li>
+                <li>
+                    <span id='greeting'> Welcome, </span> my name is <span id='name'>Dillon</span>.
+                </li>
+                <li>
+                    Take a look around
+                </li>
+                <li class='shell_input'>
+                    <div id='cursor'></div>
+                </li>
+            </ul>
+        </div>
+
+        <div id='scroll_icon'>
+            scroll
+        </div>
+
+    </div>
+    <!--CONTENT-->
+
+    <!--ABOUT-->
+    <div id='about' name='about' class='section'>
+        <div id='about_header'>
+            <div class='parallax'></div>
+            <span class='header_text'>ABOUT</span>
+        </div>
+        <div class='band'>
+            <div class='container'>
+                <p>Labore aliquip dolor dolor cillum consequat voluptate dolore consequat aute consequat enim. Enim voluptate nulla voluptate commodo pariatur in eiusmod in ullamco mollit irure deserunt reprehenderit non ipsum enim. Anim deserunt exercitation ex cupidatat aute ad exercitation nostrud consequat. Anim ipsum irure culpa velit veniam Lorem nostrud. Est anim exercitation aliquip esse commodo veniam adipisicing dolor eu aute cillum ex adipisicing aliquip laborum ullamco. Commodo adipisicing tempor commodo commodo et sunt eu cupidatat ut. Irure irure duis veniam consectetur id ex reprehenderit commodo. Magna sint ipsum officia commodo ex laboris enim in fugiat aute laborum exercitation.</p>
+            </div>
+        </div>
+    </div>
+
+    <!--WORKS-->
+    <div id='works' name='works' class='section'>
+        <div id='works_header'>
+            <div class='parallax'></div>
+            <span class='header_text'>WORKS</span>
+        </div>
+        <div id='python_header' class='section expand'>
+            <div class='parallax'></div>
+            <span class='language_header'>Python</span>
+        </div>
+        <div id='java_header' class='section expand'>
+            <div class='parallax'></div>
+            <span class='language_header'>Java</span>
+        </div>
+        <div id='c_header' class='section expand'>
+            <div class='parallax'></div>
+            <span class='language_header'>C</span>
+        </div>
+
+    </div>
+
+    <!--RESUME-->
+    <div id='resume' name='resume' class='section'>
+        <div id='resume_header' class='parallax'>
+            <div class='parallax'></div>
+            <span class='header_text'>RESUME</span>
+        </div>
+        <div id='resume_content' class=band>
+            <p>Ex magna ipsum id est excepteur aliqua quis proident Lorem sint. Do esse velit nostrud et minim irure voluptate consequat commodo culpa proident in commodo non velit exercitation do. Ipsum sint commodo ad nostrud laboris reprehenderit adipisicing adipisicing.</p>
+            <p>Consectetur excepteur ad nulla pariatur sunt voluptate tempor duis ullamco fugiat sit ut in ullamco. Quis anim ad commodo laboris cillum esse consectetur qui officia eiusmod dolor do ex dolore Lorem ut esse. Fugiat exercitation voluptate aliqua nisi ea consequat incididunt culpa. Magna velit duis officia non dolore proident est id dolore aliquip anim adipisicing dolore velit.</p>
+            <p>Tempor incididunt proident occaecat aliqua sint id sit aliqua eu pariatur ut enim sunt ullamco anim ullamco est. Incididunt mollit Lorem deserunt aliquip elit dolore nulla veniam aute elit consectetur proident labore eu mollit. Irure do esse eu ex ipsum voluptate nulla cillum exercitation duis est ad incididunt officia cupidatat. Irure in et culpa fugiat fugiat tempor quis non sit quis ea. Aute eu esse eiusmod dolor elit duis in laboris ad quis dolore cupidatat eiusmod esse. Eu magna eu sint laborum irure Lorem nisi ex eu fugiat eu. Incididunt sunt adipisicing eiusmod deserunt sit exercitation consectetur.</p>
+            <p>Sit non duis nulla labore aliquip ea sint. Irure in tempor proident id cillum ullamco esse consectetur. Do sunt velit tempor commodo eiusmod commodo elit esse nisi occaecat sint sunt velit velit eu aute ea. Consequat Lorem tempor sint ipsum ex in ex enim dolore cupidatat. Culpa fugiat proident occaecat ut nulla nulla magna sint tempor.</p>
+        </div>
+    </div>
+
+    <!--FOOTER-->
+    <footer class='section'>
+        <div class='band'>
+            <div class='container'>
+                <span id='footer_logo' style='height: 50px; width: 50px; background-color: red;'></span>
+                <div id='footer_links'>
+                    <ul>
+                        <li>
+                            <a href='mailto:dilong.yao@gmail.com'>
+                                <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
                             </a>
                         </li>
-                        <li> 
-                            <a href="https://github.com/yaoius">
+                        <li>
+                            <a href='http://github.com/yaoius'>
                                 <i class="fa fa-github fa-2x" aria-hidden="true"></i>
                             </a>
                         </li>
                         <li>
-                            <a href='https://www.linkedin.com/in/dillon-yao-b24329102'>
+                            <a href='http://linkedin.com/me'>
                                 <i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i>
                             </a>
                         </li>
                     </ul>
                 </div>
             </div>
-		</footer>
-            
-        
-    <script src='js/intro_image_scroll.js'></script>
-    <script src='js/target_scroll.js'></script>
-    <script type='text/javascript'>
-        jQuery(document).ready(function() {
-            jQuery(document).scroll(distort_background);
-            }
-        );       
-    </script>
-            
-    </body>
+        </div>
+    </footer>
 
+</body>
 </html>
-
-

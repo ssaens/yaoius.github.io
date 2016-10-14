@@ -1,315 +1,322 @@
-/* ==General== */
-html, body, div, p, h1, h2, h3, h4, a {
+html, body {
     margin: 0;
     padding: 0;
-    font-weight: normal;
+    height: 100%;
+    background-color: #1a1e24;
+    font-family: sans-serif;
 }
 
-div {
+div, nav {
     position: relative;
     display: block;
 }
 
-::selection {
-    background-color: #ddd;
-    color: #6f0d0d;
+p, h1, h2, h3, h4, div {
+    margin: 0;
+    font-weight: 100;
 }
 
-::-moz-selection {
-    
+a, a:visited {
+    color: white;
 }
 
-/* ==Headers== */
-
-.section_header {
-    width: auto;
+.section {
+    overflow: auto;
+    background-color: grey;
 }
 
-
-/* ==Nav== */
-nav {
-    position: fixed;
-    display: block;
-    background-color: #333;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    overflow: visible;
-    text-align: center;
-    line-height: 0;
-    border-top: 2px solid #6f0d0d;
-    border-bottom: 2px solid #6f0d0d;
-    opacity: 0.8;
+.band {
+    padding: 40px 0;
 }
 
-    nav ul {
-        position: relative;
-        display: inline-block;
-        margin: 0;
-        padding: 0;
-    }
-
-    nav ul:first-child {
-        border-left: 2px solid #6f0d0d;
-    }
-
-        nav ul li {
-            display: block;
-            float: left;
-            padding: 0;
-            border-right: 2px solid #6f0d0d;
-        }
-
-        nav ul li a {
-            display: block;
-            color: white;
-            width: 32px;
-            padding: 15px;
-            transition: 0.5s;
-        }
-
-        nav ul li a:hover {
-            color: #6f0d0d;
-            background-color: white;
-            transition: 0.5s;
-            opacity: 0.99;
-        }
-
-    .tooltip .tooltiptext {
-        display: none;
-    }
-
-    .tooltip:hover .tooltiptext {
-
-    }
-
-/* ==Intro Image== */
-#intro_image {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: -1;
-}
-
-    #intro_name, #photo_cred {
-        color: #beccee;
-        font-family: Arial, Helvetica, sans-serif;
-        text-align: center;
-        font-weight: 100;
-    }
-
-    #intro_name {
-        position: absolute;
-        left: 0;
-        top: 65%;
-        width: 100%;
-        text-align: center;
-        font-size: 25px;
-        display: none;
-    }
-
-    #intro_logo {
-        position: absolute;
-        left: 0;
-        top: 55%;
-        width: 100%;
-        text-align: center;
-    }
-
-    #background {
-        width: 100%;
-        height: 600px;
-        background-image: url('../img/dillon_fire_cropped.jpg');
-        background-position: center;
-        background-size: cover;
-        opacity: 1;
-        -webkit-filter: blur(0px) grayscale(100%);
-    }
-
-    #photo_cred {
-        position: absolute;
-        right: 5px;
-        bottom: 0;
-    }
-    
-/* ==Content== */
-.content {
-    margin-top: 600px;
-}
-
-#about, #resume, #projects, #contact, footer {
-    position: relative;
-    z-index: 5;
-    padding: 60px 0px;
-/*    border-bottom: 2px solid #6f0d0d;*/
-    border-bottom: 2px solid black;
-    box-shadow: 0 0 30px 2px #222222;
+.parallax {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 200px;
 }
 
 .container {
-    position: relative;
-    width: 80%;
-    max-width: 1000px;
-    min-width: 600px;
-    margin: 0 auto;
     overflow: auto;
-    padding: 0;
+    margin: 0 10%;
 }
 
-.col {
-    margin: 0 15px;
-    float: left;
-    display: inline;
+.header_text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 30px;
+    background-color: rgba(0, 0, 0, 0.6);;
+    font-size: 1.5em;
+    color: white;
 }
 
-/* ==About== */
-
-#about {
-    background-color: #333333;
-    z-index: 6;
-    box-shadow: 0 5px 30px #222222;
-    border-top: 2px solid black;
-    border-bottom: 2px solid black;
+/* === NAVIGATION === */
+header {
+    padding: 20px 0px;
+    margin: 0 20px;
+    overflow: auto;
 }
 
-    #about p {
-        font-family:  Verdana, Geneva, sans-serif;	
-        font-weight: 200;
-        line-height: 2.5em;
-        margin: 0;
+    header a {
+        text-decoration: none;
     }
-
-    #about .blurb {
-        width: 60%;
-    }
-
-    #about .headshot {
-        width: 20%;
-    }
-
-    #about .headshot img {
-        border-radius: 50%;
-        width: 100%;
-        height: 100%;
-    }
-
-/* ==Resume== */
-
-#resume {
-    background-color: #6f0d0d;
-}
-
-    #resume h3, p {
-        font-weight: 100;
-    }
-
-    .resume_section {
-        overflow: auto;
-        margin: 0px auto;
-        padding: 20px 0;
-        border-bottom: 1px solid grey;
-    }
-
-    .resume_header {
-        color: #bbb;
-        width: 10%;
-    }
-
-    .resume_entry {
-        max-width: 400px;
-        padding-left: 20px;
-        border-left: 1px solid grey;
-        width: 55%;
-    }
-
-    .entry_main {
-        float: left;
-    }
-
-        .entry_main h3 {
-            font-style: italic;
-            color: #fff;
-            margin-bottom: 5px;
-        }
-
-        .entry_main p {
-            color: #212;
-        }
-
-    .entry_time {
-        float: right;
-        margin-right: 0;
-        padding-top: 3px;
-    }
-
-        .entry_time p {
-            color: #bbb;
-        }
-
-/* ==Projects ==*/
-
-#projects {
-    background-color: white;
-    z-index: 6;
-}
-
-/* ==Contact== */
-
-#contact {
-    background-color: white;
-    z-index: 3;
-}
-
-#test_text {
-    background-color: white;
-    margin: 0;
-    padding: 20px 5px;
-}
-
-    #test_text p {
-        margin: 0;
-    }
-
-
-/* ==Footer== */
-footer {
-    position: relative;
-    display: block;
-    background-color: black;
-    height: 150px;
-    overflow: visible;
-    text-align: center;
-}
 
     .logo_container {
-        position: relative;
-        display: inline-block;
-        height: 50px;
-        width: 50px;
-        border: 1px solid white;
-        margin: 20px 0px;
-    }
-
-    .social_media_links ul {
-        position: relative;
-        display: inline-block;
-        bottom: 5%;
-        padding: 0;
-    }
-
-    .social_media_links ul li {
-        display: block;
+        overflow: auto;
         float: left;
-        margin: 0 5px;
+        color: white;
     }
 
-        .social_media_links a:link, .social_media_links a:visited {
+    nav {
+        border: 2px solid orange;
+        border-radius: 50px;
+        overflow: auto;
+        float: right;
+    }
+
+    nav ul {
+        padding: 0;
+        margin: 10px 20px;
+    }
+
+    nav li {
+        display: inline-block;
+        margin: 0;
+    }
+
+    nav a {
+        padding: 5px 40px;
+        margin: 5px 10px;
+        cursor: pointer;
+        transition: 0.5s;
+    }
+
+    nav a:hover {
+        transition: 0.5s;
+        background-color: #e47f16;
+        border-radius: 50px;
+    }
+
+/* === HOME === */
+#home {
+    height: 100%;
+    color: white;
+}
+
+    /* === SHELL === */
+    #shell {
+        position: absolute;
+        right: 10%;
+        top: 30%;
+        width: 380px;
+    }
+
+    .shell_body {
+        margin: 0;
+        padding: 5px 10px;
+        list-style: none;
+        font: 0.9em 'Andale Mono', Consolas, 'Courier New';
+        line-height: 1.6em;
+    }
+
+        #greeting {
+            font-size: 1.4em;
+        }
+
+        #name {
+            color: #e47f16;
+        }
+
+    .shell_body li.shell_input:before {
+        content: '>>>';
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: text;
+    }
+
+    .shell_body li {
+        word-wrap: break-word;
+        position: relative;
+        padding: 0 0 0 30px;
+    }
+
+    @keyframes cursor_blink {
+        0% {background-color: white;}
+        50% {background-color: black;}
+        100% {background-color: white;}
+    }
+
+    @-webkit-keyframes cursor_blink {
+        0% {background-color: white;}
+        50% {background-color: black;}
+        100% {background-color: white;}
+    }
+
+    #cursor {
+        height: 1.562em;
+        width: 10px;
+        background-color: white;
+        display: block;
+
+        animation-timing-function: steps(1, end);
+        -webkit-animation-name: cursor_blink; /* Chrome, Safari, Opera */
+        -webkit-animation-duration: 1.5s; /* Chrome, Safari, Opera */
+        animation-name: cursor_blink;
+        animation-duration: 1.5s;
+        animation-iteration-count: infinite;
+    }
+
+    #scroll_icon {
+        color: grey;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: 0.5s;
+    }
+
+    #scroll_icon:hover {
+        color: white;
+        transition: 0.5s;
+    }
+
+
+/* === ABOUT === */
+    #about_header .parallax {
+        background-image: url('../imgs/ducks_m.jpg');
+    }
+
+
+/* === WORKS === */
+#works {
+    background-color: #282C34;
+}
+
+    #python_header {
+        border: 1px solid white;
+    }
+
+        #python_header .parallax {
+            background-image: url('../imgs/python_img.png');
+            fiter: blur(2px);
+                -webkit-filter: blur(2px);
+            height: 100px;
+        }
+
+        #python_header span {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+
+        #python_header .parallax:hover {
+            fiter: blur(0px);
+                -webkit-filter: blur(0px);
+            transition: 0.3s;
+        }
+
+    #java_header {
+        border: 1px solid white;
+        border-top: 0;
+    }
+
+        #java_header .parallax {
+            background-image: url('../imgs/java_img.png');
+            fiter: blur(2px);
+                -webkit-filter: blur(2px);
+            height: 100px;
+        }
+
+        #java_header span {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+
+        #java_header .parallax:hover {
+            fiter: blur(0px);
+                -webkit-filter: blur(0px);
+            transition: 0.3s;
+        }
+
+    #c_header {
+        border: 1px solid white;
+        border-top: 0;
+    }
+
+        #c_header .parallax {
+            background-image: url('../imgs/c_img.png');
+            fiter: blur(2px);
+                -webkit-filter: blur(2px);
+            height: 100px;
+        }
+
+        #c_header span {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+
+        #c_header .parallax:hover {
+            fiter: blur(0px);
+                -webkit-filter: blur(0px);
+            transition: 0.3s;
+        }
+
+    .language_header {
+        float: right;
+        color: white;
+    }
+
+
+/* === RESUME === */
+    #resume_header {
+            background-image: url('../imgs/capinile.jpg');
+    }
+
+
+/* === FOOTER === */
+footer {
+    width: 100%;
+}
+
+    footer.section {
+        background-color: black;
+        text-align: center;
+    }
+
+    footer #footer_logo {
+        display: inline-block;
+        margin: 20px auto;
+    }
+
+    footer #footer_links {
+        margin: 20px auto;
+        text-align: center;
+    }
+
+        footer ul {
+            display: inline-block;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        footer li {
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+        footer a, footer a:visited {
             color: grey;
+            transition: 0.5s;
         }
 
-        .social_media_links a:hover {
+        footer a:hover {
             color: white;
+            transition: 0.5s;
         }
-
-/* ==Test== */
