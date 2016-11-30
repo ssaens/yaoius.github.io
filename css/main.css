@@ -20,16 +20,16 @@ a, a:visited {
     color: white;
 }
 
-.section {
+div.section {
     overflow: auto;
     background-color: white;
 }
 
-.band {
-    padding: 40px 0;
+div.band {
+    padding: 80px 0;
 }
 
-.parallax {
+div.parallax {
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -37,23 +37,78 @@ a, a:visited {
     height: 200px;
 }
 
-.container {
+div.container {
     overflow: auto;
     margin: 0 20%;
 }
 
-.header_text {
+span.header_text {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 10px 30px;
-    background-color: rgba(0, 0, 0, 0.6);;
+    background-color: rgba(0, 0, 0, 0.7);;
     font-size: 1.5em;
     color: white;
 }
 
-.expand {
+div.project {
+    border: 2px solid #282C34;
+    overflow: hidden;
+    height: 100px;
+}
+
+div.tile-grid {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: white;
+}
+
+div.tile {
+    display: inline-block;
+    width: calc(25% - 2px);
+    border: 1px solid red;
+}
+
+    div.tile img {
+        width: 100%;
+        height: 17vw;
+        filter: brightness(50%);
+            -webkit-filter: brightness(50%);
+        transition: 0.5s;
+    }
+
+    div.tile img:hover {
+        cursor: pointer;
+        filter: brightness(80%);
+            -webkit-filter: brightness(80%);
+    }
+
+    div.tile span {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 10px 30px;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: grey;
+    }
+
+div.panel {
+    transition: 0.6s ease-in-out;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+}
+
+div.panel.show {
+    display: flex;
+    opacity: 1;
+    max-height: 100%;
+}
+
+div.expandable {
     cursor: pointer;
 }
 
@@ -152,15 +207,19 @@ header {
         padding: 0 0 0 30px;
     }
 
+    span.keyword {
+        color: #ffed00;
+    }
+
     @keyframes cursor_blink {
         0% {background-color: white;}
-        50% {background-color: black;}
+        50% {background-color: #1a1e24;}
         100% {background-color: white;}
     }
 
     @-webkit-keyframes cursor_blink {
         0% {background-color: white;}
-        50% {background-color: black;}
+        50% {background-color: #1a1e24;}
         100% {background-color: white;}
     }
 
@@ -193,12 +252,19 @@ header {
         cursor: s-resize;
     }
 
+@media screen and (max-width:680px) {
+    #shell {
+        top: 40%;
+        left: 50%;
+        transform: translate(-47%, -50%);
+    }
+}
+
 
 /* === ABOUT === */
-    #about_header .parallax {
-        background-image: url('../imgs/ducks_m.jpg');
-    }
-
+#about_header .parallax {
+    background-image: url('../imgs/ducks_m_comp.jpg');
+}
 
 /* === WORKS === */
 #works {
@@ -209,91 +275,66 @@ header {
         background-image: url('../imgs/desktop_m.jpg');
     }
 
-    #python_header {
-        border-top: 2px solid white;
-        overflow: hidden;
-    }
-
-        #python_header .parallax {
-            background-image: url('../imgs/python_img_m.png');
-            fiter: blur(1px);
-                -webkit-filter: blur(1px);
-            height: 100px;
-            transition: 0.3s;
-        }
-
-        #python_header span {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-        }
-
-        #python_header .parallax:hover {
-            fiter: blur(0px);
-                -webkit-filter: blur(0px);
-            transition: 0.3s;
+        #python_header .language_img {
+            background-image: url('../imgs/python_img_comp.png');
         }
 
     #java_header {
-        border-top: 2px solid white;
-        overflow: hidden;
+        border-top: 0;
     }
 
-        #java_header .parallax {
-            background-image: url('../imgs/java_img_m.png');
-            fiter: blur(1px);
-                -webkit-filter: blur(1px);
-            height: 100px;
-            transition: 0.3s;
-        }
-
-        #java_header span {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-        }
-
-        #java_header .parallax:hover {
-            fiter: blur(0px);
-                -webkit-filter: blur(0px);
-            transition: 0.3s;
+        #java_header .language_img {
+            background-image: url('../imgs/java_img_comp.png');
         }
 
     #c_header {
-        border-top: 2px solid white;
-        border-bottom: 2px solid white;
-        overflow: hidden;
+        border-top: 0;
     }
 
-        #c_header .parallax {
-            background-image: url('../imgs/c_img_m.png');
-            fiter: blur(1px);
-                -webkit-filter: blur(1px);
-            height: 100px;
-            transition: 0.3s;
+        #c_header .language_img {
+            background-image: url('../imgs/c_img_comp.png');
         }
 
-        #c_header span {
-            position: absolute;
-            bottom: 0;
-            right: 0;
+    #school_header {
+            border-top: 0;
+    }
+
+        #school_header .language_img {
+            background-image: url('../imgs/grid.jpg');
         }
 
-        #c_header .parallax:hover {
-            fiter: blur(0px);
-                -webkit-filter: blur(0px);
-            transition: 0.3s;
-        }
+    .language_img {
+        filter: blur(1px);
+            -webkit-filter: blur(1px);
+        transition: 0.3s;
+    }
+
+    .language_img:hover, .language_img.active {
+        filter: blur(0px);
+            -webkit-filter: blur(0px);
+        transition: 0.3s;
+    }
 
     .language_header {
-        float: right;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        color: grey;
+        transition: 0.3s ease-in-out;
+    }
+
+    .language_header.active {
         color: white;
     }
 
 
 /* === RESUME === */
-    #resume_header {
-            background-image: url('../imgs/capinile.jpg');
+    #resume_header .parallax {
+        background-image: url('../imgs/campinile_comp.jpg');
+    }
+
+    #resume .container {
+        margin: 0 10%;
     }
 
 
