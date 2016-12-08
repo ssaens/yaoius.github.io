@@ -68,6 +68,7 @@ div.tile {
     display: inline-block;
     width: calc(25% - 2px);
     border: 1px solid red;
+    border-collapse: collapse;
     cursor: pointer;
     filter: brightness(50%);
         -webkit-filter: brightness(50%);
