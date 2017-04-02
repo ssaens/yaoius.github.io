@@ -67,12 +67,32 @@ div.tile-grid {
 div.tile {
     display: inline-block;
     width: calc(25% - 2px);
+    height: 17vw;
     border: 1px solid red;
     border-collapse: collapse;
     cursor: pointer;
     filter: brightness(50%);
         -webkit-filter: brightness(50%);
     transition: 0.5s;
+}
+
+@media screen and (max-width:875px) {
+    div.tile {
+        width: calc(33%);
+        height: 30vw;
+    }
+}
+
+@media screen and (max-width:700px) {
+    div.tile {
+        width: calc(50% - 2px);
+    }
+}
+
+@media screen and (max-width:600px) {
+    div.tile {
+        width: calc(100% - 2px);
+    }
 }
 
 div.tile:hover {
@@ -82,7 +102,7 @@ div.tile:hover {
 
     div.tile img {
         width: 100%;
-        height: 17vw;
+        height: 100%;
     }
 
     div.tile span {
@@ -92,6 +112,7 @@ div.tile:hover {
         transform: translate(-50%, -50%);
         padding: 10px 30px;
         background-color: rgba(0, 0, 0, 0.7);
+        text-align: center;
         color: white;
     }
 
@@ -100,6 +121,7 @@ div.panel {
     max-height: 0;
     overflow: hidden;
     opacity: 0;
+    background-color: black;
 }
 
 div.panel.show {
@@ -335,6 +357,14 @@ header {
 
     #resume .container {
         margin: 0 10%;
+    }
+
+    #resume ul {
+        columns: 2;
+    }
+
+    .course {
+        color: #e47f16;
     }
 
 
