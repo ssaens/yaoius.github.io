@@ -132,9 +132,9 @@ shell {
     position: absolute;
     height: 285px;
     width: 525px;
-    right: 50%;
+    right: 12%;
     top: 50%;
-    transform: translate(95%, -50%);
+    transform: translate(0, -50%);
     overflow-y: hidden;
     font-family: 'Source Code Pro', monospace;
     color: white;
@@ -194,7 +194,8 @@ shell {
 
 @media screen and (max-width: 750px) {
     shell {
-        width: 400px;
+        width: 300px;
+        right: 50%;
         transform: translate(50%, -50%);
     }
 }
@@ -305,9 +306,31 @@ shell {
     #resume_contents div.courses {
         columns: 1;
     }
+    
     #resume_contents .edu_header span.date {
         display: block;
         float: none;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    #resume {
+        display: relative;
+    }
+    
+    #resume_links {
+        display: block;
+        width: 100%;
+        margin: 0;
+    }
+    
+    #resume_links li {
+        float: left;
+        margin-right: 2em;
+    }
+    
+    #resume_links li:first-child {
+        margin-top: 0;
     }
 }
 
@@ -327,9 +350,11 @@ footer ul {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    white-space: nowrap;
 }
 
 footer li {
+    text-align: center;
     display: inline-block;
     margin: 0 20px;
 }

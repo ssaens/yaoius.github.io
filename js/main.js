@@ -1,10 +1,14 @@
-var acc = document.getElementsByClassName("expandable");
-var i;
+    $('a[href*=#]:not([href=#])').click(function() {
+    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') 
+        || location.hostname == this.hostname) {
 
-for (i = 0; i < acc.length; i++) {
-    acc[i].onclick = function(){
-        this.nextElementSibling.classList.toggle("show");
-        this.children[0].classList.toggle("active");
-        this.children[1].classList.toggle("active");
+        var target = $(this.hash);
+        target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+           if (target.length) {
+             $('html,body').animate({
+                 scrollTop: target.offset().top
+            }, 1000);
+            return false;
+        }
     }
-}
+});

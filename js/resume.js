@@ -20,7 +20,7 @@ function edu_entry(name, start, end, major, gpa, standing, coursework) {
     
     this.toString = function() {
         var timeframe = tag('span', {'class': 'date'}, this.start + ' - ' + this.end);;
-        var head = tag('div', {'class': 'edu_header'}, this.name + timeframe);
+        var head = tag('div', {'class': 'edu_header'}, this.name + ' ' + timeframe);
         
         var major = tag('span', {'class': 'info_head'}, 'Major: ') + this.major;
         var gpa = tag('span', {'class': 'info_head'}, 'GPA: ') + this.gpa;
