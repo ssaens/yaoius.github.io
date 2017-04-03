@@ -343,7 +343,7 @@ function shell(element) {
         this.cmd_buffer = last_buffer;
         last_buffer.staple();
         this.cmd_log.forEach(function(buffer) {buffer.reset()} );
-        this.line_buffer.push(this.prompt() + this.cmd_buffer);
+        this.add_line(this.prompt() + this.cmd_buffer);
         var result = this.parse_cmd();
         if (this.cmd_buffer.toString().trim() === '') {
             this.cmd_log.pop();
@@ -351,9 +351,8 @@ function shell(element) {
         this.cmd_buffer = new input_buffer();
         this.cmd_log.push(this.cmd_buffer);
         this.curr_line = 0;
-        this.temp_input = [];
         if (result) {
-            this.line_buffer.push(result);
+            this.add_line(result);
         }
     }
     
@@ -378,24 +377,19 @@ function shell(element) {
         return error;
     }
     
+    this.add_line = function(line) {
+        this.line_buffer += tag('shln', {}, line);
+    }
+    
     this.update = function() {
-        prev_lines = this.buffer_to_html();
         curr_line = this.prompt() + this.cmd_buffer.prompt_string();
-        this.div.innerHTML = prev_lines + curr_line;
+        this.div.innerHTML = this.line_buffer + curr_line;
         this.div.scrollTop = this.div.scrollHeight;
     }
-    
-    this.buffer_to_html = function() {
-        var out = ''
-        this.line_buffer.forEach(function(line) {
-            out += tag('shln', {}, line);
-        });
-        return out;
-    }
-    
+
     this.init = function() {
         this.focussed = false;
-        this.line_buffer = [];
+        this.line_buffer = '';
         this.curr_line = 0;
         this.node = root;
         this.error_count = 0;
