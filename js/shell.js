@@ -14,7 +14,6 @@ if(typeof(String.prototype.trim) === "undefined")
 var installed_progs = {
     'pwd' : pwd,
     'python' : python,
-    'python3' : python,
     'ls' : ls,
     'll' : ls,
     'cd' : cd,
@@ -72,7 +71,7 @@ function clear(shell, args) {
 }
 
 function pwd(shell, args) {
-    return shell.node.wd();
+    return shell.node.wd().replace('~', '/Users/guest');
 }
 
 function python(shell, args) {
@@ -276,6 +275,7 @@ function shell(element) {
     this.h = element.height;
     this.user = 'guest';
     this.host = 'dillonyao.tk';
+    this.max_log_size = 20;
     
     this.is_printable = function(keycode) {
         return (keycode > 47 && keycode < 58)   || // number keys
@@ -350,6 +350,9 @@ function shell(element) {
         }
         this.cmd_buffer = new input_buffer();
         this.cmd_log.push(this.cmd_buffer);
+        if (this.cmd_log.length > this.max_log_size) {
+            this.cmd_log.shift();
+        }
         this.curr_line = 0;
         if (result) {
             this.add_line(result);
@@ -370,9 +373,9 @@ function shell(element) {
         this.error_count++;
         var error = '-yaoshell: ' + prog + ': command not found';
         if (this.error_count > 4) {
-            error += BREAK + 'You can also just browse the page by scrolling down, this shell isn\'t that interesting...';
+            error += BREAK + '-yaoshell: You can also just browse the page by scrolling down, this shell isn\'t that interesting...';
         } else if (this.error_count > 1) {
-            error += BREAK + 'Use the ' + tag('key', {}, 'help') + ' command to see available functions!';
+            error += BREAK + '-yaoshell: Use the ' + tag('key', {}, 'help') + ' command to see available functions!';
         }
         return error;
     }
