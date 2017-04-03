@@ -92,7 +92,7 @@ header div.col {
 
     header nav ul li {
         display: inline-block;
-        padding: 0 20px;
+        padding-right: 40px;
         text-align: right;
     }
 
@@ -115,6 +115,11 @@ header div.col {
         color: white;
     }
 
+@media screen and (max-width: 750px) {
+    header nav {
+        position: relative;
+    }
+}
 
 /* ==HOME== */
 #home {
@@ -126,10 +131,10 @@ header div.col {
 shell {
     position: absolute;
     height: 285px;
-    width: 600px;
-    right: 12%;
+    width: 525px;
+    right: 50%;
     top: 50%;
-    transform: translate(0, -50%);
+    transform: translate(95%, -50%);
     overflow-y: hidden;
     font-family: 'Source Code Pro', monospace;
     color: white;
@@ -187,6 +192,12 @@ shell {
         color: lightblue;
     }
 
+@media screen and (max-width: 750px) {
+    shell {
+        width: 400px;
+        transform: translate(50%, -50%);
+    }
+}
 
 /* ==ABOUT== */
 #about {
@@ -214,6 +225,7 @@ shell {
 
     #resume_contents div.resume_sec h2.title {
         color: rgb(133, 1, 11);
+        text-transform: uppercase;
         border-bottom: 2px solid rgb(253, 148, 8);
         margin-bottom: 0.25em;
     }
@@ -223,6 +235,10 @@ shell {
             padding: 0.25em 0 0.25em 17px;
             font-size: 1.2em;
             border-left: 7px solid rgb(253, 148, 8);
+        }
+
+        #resume_contents .edu_header span.date {
+            float: right;
         }
 
         #resume_contents div.entry_data {
@@ -284,6 +300,16 @@ shell {
     #resume_links a:hover {
         color: rgb(253, 148, 8);
     }
+
+@media screen and (max-width: 750px) {
+    #resume_contents div.courses {
+        columns: 1;
+    }
+    #resume_contents .edu_header span.date {
+        display: block;
+        float: none;
+    }
+}
 
 /* ==FOOTER== */
 footer {

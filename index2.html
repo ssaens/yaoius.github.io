@@ -156,6 +156,7 @@ Sed vel urna tempor, fringilla magna et, accumsan enim. Nulla pulvinar ut nisl e
         });
         
         var targeted = undefined;
+        var header_height = 85;
         window.addEventListener('scroll', function(e) {
             var scroll = document.body.scrollTop;
             var nav_anchors = $('nav').children().children().children();
@@ -163,7 +164,7 @@ Sed vel urna tempor, fringilla magna et, accumsan enim. Nulla pulvinar ut nisl e
             for (var i = nav_anchors.length - 1; i >= 0; --i) {
                 var anchor = nav_anchors.eq(i);
                 var section_name = anchor[0].getAttribute('href');
-                var section_height = $(section_name).offset().top;
+                var section_height = $(section_name).offset().top - header_height;
                 if (section_name == targeted || (scroll >= section_height && !found && !targeted)) {
                     anchor.addClass('active');
                     found = true;
