@@ -2,234 +2,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel='stylesheet' type='text/css' href='css/hex.css'>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:200|Source+Code+Pro|Source+Sans+Pro" rel="stylesheet">
 
     <title>Dillon Yao</title>
-    <link rel='stylesheet' type='text/css' href='css/main.css'>
     <script src="https://use.fontawesome.com/d59afdec51.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    
 </head>
-
+    
 <body>
-    <!--NAVIGATION-->
-    <div id='home'>
-        <header>
+    <!--Nav-->
+    <header>
+        <div class='col'>
+<!--
+            <canvas id="myCanvas" width="100" height="100" style="display:none;"></canvas>
+        <img id="canvasImg">
+        <script>
+            var canvas = document.getElementById('myCanvas');
+            var context = canvas.getContext('2d');
+            var w = canvas.width;
+            var h = canvas.height;
+            context.rect(1, 1, w-2, h-2);
+            context.lineWidth = 2;
+            context.strokeStyle = '#ffffff';
+            context.stroke();
+            context.moveTo(0, h);
+            context.lineTo(w, 0);
+            context.moveTo(0, 0);
+            context.lineTo(w/2, h/2);
+            context.lineWidth = 2;
+            context.stroke();
+            var dataURL = canvas.toDataURL();
+            document.getElementById('canvasImg').src = dataURL;
+        </script>
+-->
             <div class='logo_container'>
-                <a id='logo' href='http://dillonyao.tk'>
-                    <span style='color:yellow; font-size:1.5em'>NOTICE:</span> site under construction
-                </a>
+                <h1>DILLON YAO</h1>
             </div>
 
             <nav>
-                <div class='navbar'>
-                    <ul>
-                        <li>
-                            <a href='#'>Home</a>
-                        </li>
-                        <li>
-                            <a href='#about'>About</a>
-                        </li>
-                        <li>
-                            <a href='#works'>Works</a>
-                        </li>
-                        <li>
-                            <a href='#resume'>Resume</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
+                <ul>
+                    <li>
+                        <a href=#home class='active'>Home</a>
+                    </li>
+                    <li>
+                        <a href=#about>About</a>
+                    </li>
+                    <li>
+                        <a href='#projects'>Projects</a>
+                    </li>
+                    <li>
+                        <a href='#resume'>Résumé</a>
+                    </li>
+                </ul>
+            </nav>        
+        </div>
+    </header>
+    
+    <!--Splash-->
+    <div id='home' class='sec'>
+        <shell></shell>
+    </div>
+    
+    <!--About-->
+    <div id='about' class='sec'>
+        <div class='col'>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent blandit eu sem in sodales. Donec at finibus nulla, in ornare eros. Nullam ac rutrum turpis, id dictum nulla. Nam posuere varius sodales. Vestibulum blandit id elit vel eleifend. Etiam arcu risus, fringilla at tempor non, maximus et purus. Nullam vel consectetur urna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
 
-        <div id='shell' class='shell'>
-            <ul class='shell_body'>
-                <li class='shell_input'>
-                    <span class='keyword'>from</span> humans <span class='keyword'>import</span> me
-                </li>
-                <li class='shell_input'>
-                    g = Greeting(welcome, me.get_name())
-                </li>
-                <li class='shell_input'>
-                    g.greet()
+Sed vel urna tempor, fringilla magna et, accumsan enim. Nulla pulvinar ut nisl eget blandit. Nullam ultricies neque quis ex convallis cursus. Nam tristique tempus ex. Aenean vestibulum egestas pharetra. In hac habitasse platea dictumst. Nam quis finibus leo. Integer sit amet faucibus erat, sed aliquam nisi.</p>
+        </div>
+    </div>
+    
+    <!--Projects-->
+    <div id='projects' class='sec'>
+        <div class='col'></div>
+    </div>
+    
+    <!--Resume-->
+    <div id='resume' class='sec'>
+        <div class='col'>
+            <ul id='resume_links'>
+                <li>
+                    <a href="./index.html">
+                        <i class="fa fa-file-text fa-2x" aria-hidden="true"></i>
+                    </a>
                 </li>
                 <li>
-                    <span id='greeting'> Welcome, </span> my name is <span id='name'>Dillon</span>.
+                    <a href="http://github.com/yaoius">
+                        <i class="fa fa-github fa-2x" aria-hidden="true"></i>
+                    </a>
                 </li>
                 <li>
-                    Take a look around
+                    <a href="http://bitbucket.com">
+                        <i class="fa fa-bitbucket fa-2x" aria-hidden="true"></i>
+
+                    </a>
                 </li>
-                <li class='shell_input'>
-                    <div id='cursor'></div>
+                <li>
+                    <a href="http://linkedin.com/me">
+                        <i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i>
+                    </a>
                 </li>
             </ul>
-        </div>
-
-        <div id='scroll_icon'>
-            scroll
-        </div>
-
-    </div>
-    <!--CONTENT-->
-
-    <!--ABOUT-->
-    <div id='about' name='about' class='section'>
-        <div id='about_header'>
-            <div class='parallax'></div>
-            <span class='header_text'>ABOUT</span>
-        </div>
-        <div class='band'>
-            <div class='container'>
-                <p>Labore aliquip dolor dolor cillum consequat voluptate dolore consequat aute consequat enim. Enim voluptate nulla voluptate commodo pariatur in eiusmod in ullamco mollit irure deserunt reprehenderit non ipsum enim. Anim deserunt exercitation ex cupidatat aute ad exercitation nostrud consequat. Anim ipsum irure culpa velit veniam Lorem nostrud. Est anim exercitation aliquip esse commodo veniam adipisicing dolor eu aute cillum ex adipisicing aliquip laborum ullamco. Commodo adipisicing tempor commodo commodo et sunt eu cupidatat ut. Irure irure duis veniam consectetur id ex reprehenderit commodo. Magna sint ipsum officia commodo ex laboris enim in fugiat aute laborum exercitation.</p>
-                <p>Quis sit quis reprehenderit exercitation amet velit ex duis ea cillum labore sunt ullamco in non. In commodo non nulla tempor dolor eu id. Labore dolore voluptate anim nostrud et cillum cillum Lorem commodo cillum sunt. Exercitation pariatur in et proident minim eiusmod ad mollit occaecat veniam. Ea ex commodo anim mollit velit tempor dolore aliqua in officia minim anim labore sit anim ex ea. Consequat tempor et enim pariatur voluptate anim pariatur fugiat aute ex enim irure anim nostrud occaecat mollit do.</p>
-            </div>
+            <div id='resume_contents'></div>
         </div>
     </div>
+    
+    <footer class='sec'>
+        <div class=logo>
+            <span id="footer_logo" style="height: 50px; width: 50px; background-color: red;"></span>
+        </div>
+        <ul>
+            <li>
+                <a href="http://github.com/yaoius">
+                    <i class="fa fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+            <li>
+                <a href="http://bitbucket.com">
+                    <i class="fa fa-bitbucket fa-2x" aria-hidden="true"></i>
 
-    <!--WORKS-->
-    <div id='works' name='works' class='section'>
-        <div id='works_header'>
-            <div class='parallax'></div>
-            <span class='header_text'>WORKS</span>
-        </div>
-
-        <div id='python_header' class='project section expandable'>
-            <div class='language_img parallax'></div>
-            <span class='language_header'>Python</span>
-        </div>
-        <div id='python_content' class='tile-grid panel'>
-            <div id='pyNews' class='tile'>
-                <img src='imgs/grid.jpg'>
-                <span>pyNews</span>
-            </div>
-            <div id='viSort' class='tile'>
-                <img src='imgs/grid.jpg'>
-                <span>viSort</span>
-            </div>
-            <div id='server' class='tile'>
-                <img src='imgs/grid.jpg'>
-                <span>Simple Server</span>
-            </div>
-            <div id='geneticAlg' class='tile'>
-                <img src='imgs/grid.jpg'>
-                <span>geneticAlg</span>
-            </div>
-            <div id='scheme_interpreter' class='tile'>
-                <img src='imgs/grid.jpg'>
-                <span>Scheme</span>
-            </div>
-        </div>
-
-        <div id='java_header' class='project section expandable'>
-            <div class='language_img parallax'></div>
-            <span class='language_header'>Java</span>
-        </div>
-        <div id='java_content' class='tile-grid panel'>
-            <div id='editor' class='tile'>
-
-            </div>
-        </div>
-
-        <div id='c_header' class='project section expandable'>
-            <div class='language_img parallax'></div>
-            <span class='language_header'>C/C++</span>
-        </div>
-        <div id='c_content' class='tile-grid panel'>
-            <div id='BliqueVisualizer' class='tile'>
-                <img src='imgs/grid.jpg'>
-                <span>BliqueVisual</span>
-            </div>
-            <div id='FractalVisualizer' class='tile'>
-                <img src='imgs/grid.jpg'>
-                <span>FractalVisual</span>
-            </div>
-            <div id='MIPS' class='tile'>
-                <img src='imgs/grid.jpg'>
-                <span>MIPS Assembler and Linker</span>
-            </div>
-        </div>
-    </div>
-
-    <!--RESUME-->
-    <div id='resume' name='resume' class='section'>
-        <div id='resume_header' class='parallax'>
-            <div class='parallax'></div>
-            <span class='header_text'>RESUME</span>
-        </div>
-        <div id='resume_content' class=band>
-            <div class=container>
-                <h2>Relevant Coursework</h2>
-                <ul>
-                    <li>
-                        <span class='course'>CS61A:</span> The structure and interpretation of computer programs
-                    </li>
-                    <li>
-                        <span class='course'>CS61B:</span> Data Structures
-                    </li>
-                    <li>
-                        <span class='course'>CS61C:</span> Great Ideas in Computer Architecture
-                    </li>
-                    <li>
-                        <span class='course'>CS70:</span> Discrete Math and Probability Theory
-                    </li>
-                    <li>
-                        <span class='course'>CS170:</span> Efficient Algorithms and Intractibility Theory
-                    </li>
-                    <li>
-                        <span class='course'>CS184:</span> Introduction to Computer Graphics
-                    </li>
-                    <li>
-                        <span class='course'>CS188:</span> Introduction to AI
-                    </li>
-                    <li>
-                        <span class='course'>CS161:</span> Computer Security
-                    </li>
-                    <li>
-                        <span class='course'>EE16A/B:</span> Designing Information Devices and Systems
-                    </li>
-                </ul>
-
-                <h2>Organizations</h2>
-                <h2>Honors</h2>
-                <h2>Other Experience</h2>
-                <ul>
-                    <li>
-                        FTC/FTC robotics
-                    </li>
-                    <li>
-
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <!--FOOTER-->
-    <footer class='section'>
-        <div class='band'>
-            <div class='container'>
-                <span id='footer_logo' style='height: 50px; width: 50px; background-color: red;'></span>
-                <div id='footer_links'>
-                    <ul>
-                        <li>
-                            <a href='mailto:dilong.yao@gmail.com'>
-                                <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href='http://github.com/yaoius'>
-                                <i class="fa fa-github fa-2x" aria-hidden="true"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href='http://linkedin.com/me'>
-                                <i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+                </a>
+            </li>
+            <li>
+                <a href="http://linkedin.com/me">
+                    <i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+            <li>
+                <a href="mailto:dilong.yao@gmail.com">
+                    <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
     </footer>
-
-    <script src='js/main.js'></script>
-
+    
+    <script src='js/resume.js'></script>
+    <script src='js/shell.js'></script>
+    <script>
+        home_shell = new shell(document.getElementsByTagName('shell')[0]);
+        home_shell.init()
+        window.addEventListener('keydown', function(e) {
+            if ((e.keyCode == 32 || //space
+                 e.keyCode == 38 || //left
+                 e.keyCode == 40 || //right
+                 e.keyCode == 9) && //tab
+                 e.target == document.body) {
+                e.preventDefault();
+            }
+            home_shell.handle_input(e);
+        });
+        
+        var targeted = undefined;
+        var header_height = 85;
+        window.addEventListener('scroll', function(e) {
+            var scroll = document.body.scrollTop;
+            var nav_anchors = $('nav').children().children().children();
+            var found = false;
+            for (var i = nav_anchors.length - 1; i >= 0; --i) {
+                var anchor = nav_anchors.eq(i);
+                var section_name = anchor[0].getAttribute('href');
+                var section_height = $(section_name).offset().top - header_height;
+                if (section_name == targeted || (scroll >= section_height && !found && !targeted)) {
+                    anchor.addClass('active');
+                    found = true;
+                } else {
+                    anchor.removeClass('active');
+                }
+            }
+        });
+        build_resume();
+        
+        $(document).ready(function(){
+          // Add smooth scrolling to all links
+          $("a").on('click', function(event) {
+            // Make sure this.hash has a value before overriding default behavior
+              targeted = this.getAttribute('href');
+            if (this.hash !== "") {
+              // Prevent default anchor click behavior
+              event.preventDefault();
+              // Store hash
+              var hash = this.hash;
+              // Using jQuery's animate() method to add smooth page scroll
+              // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+              $('html, body').animate({
+                scrollTop: $(hash).offset().top
+              }, 800, function(){
+                // Add hash (#) to URL when done scrolling (default click behavior)
+                window.location.hash = hash;
+                  targeted = undefined;
+              });
+            } // End if
+          });
+        });
+    </script>
+    
 </body>
-
+    
 </html>
