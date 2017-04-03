@@ -190,8 +190,10 @@ function file_node(name, type, children, data) {
     }
 }
 
+ORNG = 'rgb(253, 148, 8)';
 
-var intro_text = 'Hi there! My name is ' + tag('span', {'style': 'color: rgb(253, 148, 8)'}, 'Dillon Yao') + '. Take a look around!';
+
+var intro_text = 'Hi there! My name\'s is ' + tag('span', {'style': 'color: ' + ORNG}, 'Dillon') + ' and this is my site. Take a look around!';
 
 var root = new file_node('~', DIR, [
     new file_node('README', FILE, [], intro_text),
@@ -276,6 +278,11 @@ function shell(element) {
     this.user = 'guest';
     this.host = 'dillonyao.tk';
     this.max_log_size = 20;
+    this.v_major = 0;
+    this.v_minor = 0;
+    this.v_build = 1;
+    var version = 'v' + tag('span', {}, this.v_major) + '.' + tag('span', {}, this.v_minor) + '.' + tag('key', {}, this.v_build);
+    this.startup_info = tag('shln', {}, tag('span', {'style': 'color: yellow'}, '*>> yaoshell') + ' ' + version) + tag('shln', {}, '*>> type ' + tag('key', {}, 'help') + ' for available functions.');
     
     this.is_printable = function(keycode) {
         return (keycode > 47 && keycode < 58)   || // number keys
@@ -334,7 +341,7 @@ function shell(element) {
     this.prompt = function() {
         user = tag('user', {}, this.user);
         host = tag('host', {}, this.host);
-        return user + '@' + host + ':' + this.node.wd() + '$ ';
+        return user + '@' + host + ':' + this.node.wd() + '> ';
     }
     
     this.consume_cmd = function() {
@@ -392,7 +399,7 @@ function shell(element) {
 
     this.init = function() {
         this.focussed = false;
-        this.line_buffer = '';
+        this.line_buffer = this.startup_info;
         this.curr_line = 0;
         this.node = root;
         this.error_count = 0;
