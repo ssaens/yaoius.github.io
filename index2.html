@@ -1,0 +1,127 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel='stylesheet' type='text/css' href='css/hex.css'>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:200|Source+Code+Pro|Source+Sans+Pro" rel="stylesheet">
+
+    <title>Dillon Yao</title>
+    <script src="https://use.fontawesome.com/d59afdec51.js"></script>
+    
+</head>
+    
+<body>
+    <!--Nav-->
+    <header>
+        <div class='col'>
+<!--
+            <canvas id="myCanvas" width="100" height="100" style="display:none;"></canvas>
+        <img id="canvasImg">
+        <script>
+            var canvas = document.getElementById('myCanvas');
+            var context = canvas.getContext('2d');
+            var w = canvas.width;
+            var h = canvas.height;
+            context.rect(1, 1, w-2, h-2);
+            context.lineWidth = 2;
+            context.strokeStyle = '#ffffff';
+            context.stroke();
+            context.moveTo(0, h);
+            context.lineTo(w, 0);
+            context.moveTo(0, 0);
+            context.lineTo(w/2, h/2);
+            context.lineWidth = 2;
+            context.stroke();
+            var dataURL = canvas.toDataURL();
+            document.getElementById('canvasImg').src = dataURL;
+        </script>
+-->
+            <div class='logo_container'>
+                <h1>DILLON YAO</h1>
+            </div>
+
+            <nav>
+                <ul>
+                    <li>
+                        <a href='#'>Home</a>
+                    </li>
+                    <li>
+                        <a href='#about'>About</a>
+                    </li>
+                    <li>
+                        <a href='#projects'>Projects</a>
+                    </li>
+                    <li>
+                        <a href='#resume'>Résumé</a>
+                    </li>
+                </ul>
+            </nav>        
+        </div>
+    </header>
+    
+    <!--Splash-->
+    <div id='home' class='sec'>
+        <shell></shell>
+    </div>
+    
+    <!--About-->
+    <div id='about' class='sec'>
+        <div class='col'>
+            <p>Lorem Ipsum blah blah blah</p>
+        </div>
+    </div>
+    
+    <!--Projects-->
+    <div id='projects' class='sec'>
+        <div class='col'></div>
+    </div>
+    
+    <!--Resume-->
+    <div id='resume' class='sec'>
+        <div class='col'></div>
+    </div>
+    
+    <footer class='sec'>
+        <div>
+            <ul>
+                <li>
+                    <a href='linkedin.com'>
+                        <icon></icon>
+                    </a>
+                </li>
+                <li>
+                    <a href='github.com'>
+                        <icon></icon>
+                    </a>
+                </li>
+                <li>
+                    <a href=''>
+                        <icon></icon>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+    
+    <script src='js/resume.js'></script>
+    <script src='js/shell.js'></script>
+    <script>
+        home_shell = new shell(document.getElementsByTagName('shell')[0]);
+        home_shell.init()
+        window.addEventListener('keydown', function(e) {
+            if ((e.keyCode == 32 || //space
+                 e.keyCode == 38 || //left
+                 e.keyCode == 40 || //right
+                 e.keyCode == 9) && //tab
+                 e.target == document.body) {
+                e.preventDefault();
+            }
+            home_shell.handle_input(e);
+        });
+        build_resume();
+    </script>
+    
+</body>
+    
+</html>
