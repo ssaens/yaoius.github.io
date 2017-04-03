@@ -101,5 +101,5 @@ function build_resume() {
         resume_html += sec;
     });
     
-    document.getElementById('resume').children[0].innerHTML = resume_html;
+    document.getElementById('resume_contents').innerHTML = resume_html;
 }

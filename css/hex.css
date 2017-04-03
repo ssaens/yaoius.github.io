@@ -35,8 +35,9 @@ a, a:visited {
  */
 
 /* ==GENERAL COMPONENENTS== */
-div.sec, header.sec, footer.sec {
-    padding: 40px 0;
+div.sec, header.sec {
+    padding: 105px 0 40px 0;
+    box-sizing: border-box;
     height: 100%;
 }
 
@@ -103,11 +104,12 @@ header div.col {
     }
 
     header nav ul li:last-child {
-        padding-right: 0.1em;
+        padding-right: 0;
     }
 
     header nav ul li a, header nav ul li a:visited {
         text-decoration: none;
+        font-size: 1.1em;
         color: lightblue;
         transition: 0.2s ease-in-out;
     }
@@ -127,15 +129,18 @@ shell {
     position: absolute;
     height: 300px;
     width: 600px;
-    margin-right: 12%;    
-    right: 0;
+    right: 12%;
     top: 50%;
     transform: translate(0, -50%);
-    overflow-y: scroll;
+    overflow-y: auto;
     word-wrap: break-word;
     font-family: 'Source Code Pro', monospace;
     color: white;
 }
+
+    shell::-webkit-scrollbar { 
+        display: none; 
+    }
 
     shell host {
         color: lightblue;
@@ -196,48 +201,108 @@ shell {
 #resume {
     background-color: white;
     color: black;
+    display: table;
+    width: 100%;
 }
 
-    #resume div.resume_sec {
-        padding: 15px 0;
+    #resume_contents {
+        display: table-cell;
+        width: auto;
+        vertical-align: top;
     }
 
-    #resume div.resume_sec h2.title {
+    #resume_contents div.resume_sec {
+        padding-bottom: 30px;
+    }
+
+    #resume_contents div.resume_sec h2.title {
         color: rgb(133, 1, 11);
         border-bottom: 2px solid grey;
         margin-bottom: 0.25em;
     }
 
-        #resume .edu_header {
+        #resume_contents .edu_header {
             color: black;
             margin-bottom: 0.25em;
             font-size: 1.2em;
         }
 
-        #resume div.entry_data {
-            border-left: 10px solid grey;
+        #resume_contents div.entry_data {
+            border-left: 10px solid rgb(20, 59, 119);
             padding: 2px 0 15px 40px;
             background-color: antiquewhite;
         }
 
-        #resume ul.edu_entry_info {
-            margin: 0.5em 0;
-            padding: 0;
+        #resume_contents ul.edu_entry_info {
+            padding: 0.5em 0;
+            margin: 0;
             list-style: none;
+            border-bottom: 1px solid black;
         }
 
-        #resume div.courses {
+        #resume_contents div.courses {
             column-count: 2;
         }
 
-        #resume div.courses div.course {
-            margin: 0.3em 0;
+        #resume_contents div.courses div.course {
+            padding-top: 0.3em;
         }
 
-        #resume span.code {
+        #resume_contents span.code {
             color: rgb(253, 148, 8);
         }
 
-        #resume span.name {
+        #resume_contents span.name {
 
         }
+
+    #resume_links {
+        display: table-cell;
+        width: 40px;
+        padding: 0;
+        text-align: center;
+        list-style: none;
+    }
+
+    #resume_links li {
+        margin: 0 1.5em 1em 0;
+    }
+
+    #resume_links li:first-child {
+        margin-top: 0.5em;
+    }
+
+    #resume_links a:hover {
+        color: rgb(253, 148, 8);
+    }
+
+/* ==FOOTER== */
+footer {
+    position: relative;
+    height: 200px;
+    width: 100%;
+}
+
+footer ul {
+    color: white;
+    list-style: none;
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+footer li {
+    display: inline-block;
+    margin: 0 20px;
+}
+
+footer ul li a, footer ul li a:visited {
+    color: white;
+}
+
+footer ul li a:hover {
+    color: lightblue;
+}

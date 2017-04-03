@@ -8,6 +8,7 @@
 
     <title>Dillon Yao</title>
     <script src="https://use.fontawesome.com/d59afdec51.js"></script>
+    <script src='js/main.js'></script>
     
 </head>
     
@@ -68,7 +69,9 @@
     <!--About-->
     <div id='about' class='sec'>
         <div class='col'>
-            <p>Lorem Ipsum blah blah blah</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent blandit eu sem in sodales. Donec at finibus nulla, in ornare eros. Nullam ac rutrum turpis, id dictum nulla. Nam posuere varius sodales. Vestibulum blandit id elit vel eleifend. Etiam arcu risus, fringilla at tempor non, maximus et purus. Nullam vel consectetur urna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+
+Sed vel urna tempor, fringilla magna et, accumsan enim. Nulla pulvinar ut nisl eget blandit. Nullam ultricies neque quis ex convallis cursus. Nam tristique tempus ex. Aenean vestibulum egestas pharetra. In hac habitasse platea dictumst. Nam quis finibus leo. Integer sit amet faucibus erat, sed aliquam nisi.</p>
         </div>
     </div>
     
@@ -79,29 +82,61 @@
     
     <!--Resume-->
     <div id='resume' class='sec'>
-        <div class='col'></div>
-    </div>
-    
-    <footer class='sec'>
-        <div>
-            <ul>
+        <div class='col'>
+            <ul id='resume_links'>
                 <li>
-                    <a href='linkedin.com'>
-                        <icon></icon>
+                    <a href="./index.html">
+                        <i class="fa fa-file-text fa-2x" aria-hidden="true"></i>
                     </a>
                 </li>
                 <li>
-                    <a href='github.com'>
-                        <icon></icon>
+                    <a href="http://github.com/yaoius">
+                        <i class="fa fa-github fa-2x" aria-hidden="true"></i>
                     </a>
                 </li>
                 <li>
-                    <a href=''>
-                        <icon></icon>
+                    <a href="http://bitbucket.com">
+                        <i class="fa fa-bitbucket fa-2x" aria-hidden="true"></i>
+
+                    </a>
+                </li>
+                <li>
+                    <a href="http://linkedin.com/me">
+                        <i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i>
                     </a>
                 </li>
             </ul>
+            <div id='resume_contents'></div>
         </div>
+    </div>
+    
+    <footer class='sec'>
+        <div class=logo>
+            <span id="footer_logo" style="height: 50px; width: 50px; background-color: red;"></span>
+        </div>
+        <ul>
+            <li>
+                <a href="http://github.com/yaoius">
+                    <i class="fa fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+            <li>
+                <a href="http://bitbucket.com">
+                    <i class="fa fa-bitbucket fa-2x" aria-hidden="true"></i>
+
+                </a>
+            </li>
+            <li>
+                <a href="http://linkedin.com/me">
+                    <i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+            <li>
+                <a href="mailto:dilong.yao@gmail.com">
+                    <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
     </footer>
     
     <script src='js/resume.js'></script>
@@ -118,6 +153,9 @@
                 e.preventDefault();
             }
             home_shell.handle_input(e);
+        });
+        window.addEventListener('scroll', function(e) {
+                                   
         });
         build_resume();
     </script>
