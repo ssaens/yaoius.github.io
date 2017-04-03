@@ -52,13 +52,6 @@ div.col, header.col, footer.col {
     line-height: 0;
 }
 
-bar_orange {
-    display: block;
-    height: 2px;
-    width: 100%;
-    background-color: rgb(253, 148, 8);
-}
-
 
 /* ==NAVIGATION== */
 header {
@@ -114,9 +107,14 @@ header div.col {
         transition: 0.2s ease-in-out;
     }
 
+    header nav ul li a.active {
+        color: white;
+    }
+
     header nav ul li a:hover {
         color: white;
     }
+
 
 /* ==HOME== */
 #home {
@@ -127,13 +125,12 @@ header div.col {
 /* ==SHELL== */
 shell {
     position: absolute;
-    height: 300px;
+    height: 285px;
     width: 600px;
     right: 12%;
     top: 50%;
     transform: translate(0, -50%);
-    overflow-y: auto;
-    word-wrap: break-word;
+    overflow-y: hidden;
     font-family: 'Source Code Pro', monospace;
     color: white;
 }
@@ -152,7 +149,7 @@ shell {
 
     shell shln {
         display: block;
-        margin-bottom: 0.2em;
+        line-height: 1.4em;
     }
 
     shell crsr {
@@ -217,27 +214,39 @@ shell {
 
     #resume_contents div.resume_sec h2.title {
         color: rgb(133, 1, 11);
-        border-bottom: 2px solid grey;
+        border-bottom: 2px solid rgb(253, 148, 8);
         margin-bottom: 0.25em;
     }
 
         #resume_contents .edu_header {
             color: black;
-            margin-bottom: 0.25em;
+            padding: 0.25em 0 0.25em 17px;
             font-size: 1.2em;
+            border-left: 7px solid rgb(253, 148, 8);
         }
 
         #resume_contents div.entry_data {
-            border-left: 10px solid rgb(20, 59, 119);
-            padding: 2px 0 15px 40px;
-            background-color: antiquewhite;
+            padding: 0 0 0.25em 47px;
+            border-left: 7px solid rgb(20, 59, 119);
         }
 
         #resume_contents ul.edu_entry_info {
-            padding: 0.5em 0;
+            padding: 0 0 0.5em 0;
             margin: 0;
             list-style: none;
+            color: grey;
             border-bottom: 1px solid black;
+        }
+
+        #resume_contents span.info_head {
+            font-weight: 600;
+            color: black;
+        }
+
+        #resume_contents h3.courses_head {
+            color: rgb(20, 59, 119);
+            margin: 0.3em 0;
+            font-size: 1.2em;
         }
 
         #resume_contents div.courses {
@@ -245,15 +254,15 @@ shell {
         }
 
         #resume_contents div.courses div.course {
-            padding-top: 0.3em;
+            margin-bottom: 0.3em;
         }
 
         #resume_contents span.code {
-            color: rgb(253, 148, 8);
+            color: rgb(223, 128, 4);
         }
 
         #resume_contents span.name {
-
+                
         }
 
     #resume_links {

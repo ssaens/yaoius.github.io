@@ -22,17 +22,22 @@ function edu_entry(name, start, end, major, gpa, standing, coursework) {
         var timeframe = tag('span', {'style': 'float: right;'}, this.start + ' - ' + this.end);;
         var head = tag('div', {'class': 'edu_header'}, this.name + timeframe);
         
-        var info = tag('li', {'class': 'major'}, this.major) +
-                    tag('li', {'class': 'gpa'}, this.gpa) +
-                    tag('li', {'class': 'standing'}, this.standing);
+        var major = tag('span', {'class': 'info_head'}, 'Major: ') + this.major;
+        var gpa = tag('span', {'class': 'info_head'}, 'GPA: ') + this.gpa;
+        var standing = tag('span', {'class': 'info_head'}, 'Standing: ') + this.standing;
+        
+        var info = tag('li', {'class': 'major'}, major) +
+                   tag('li', {'class': 'standing'}, standing) +
+                   tag('li', {'class': 'gpa'}, gpa);
         info = tag('ul', {'class': 'edu_entry_info'}, info);
         
+        var course_header = tag('h3', {'class': 'courses_head'}, 'Relevant Coursework');
         var course_html = '';
         for (var i = 0; i < this.coursework.length; ++i) {
             course_html += this.coursework[i];
         }
-        course_html = tag('div', {'class': 'courses'}, course_html);   
-        return head + tag('div', {'class': 'entry_data'}, info + course_html);
+        course_html = tag('div', {'class': 'courses'}, course_html);
+        return head + tag('div', {'class': 'entry_data'}, info + tag('div', {'class': 'course_section'}, course_header + course_html));
     }
 }
 
