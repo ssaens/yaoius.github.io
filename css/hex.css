@@ -138,6 +138,8 @@ shell {
     overflow-y: hidden;
     font-family: 'Source Code Pro', monospace;
     color: white;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
     shell::-webkit-scrollbar {
@@ -194,6 +196,10 @@ shell {
 
     shell sys {
         color: yellow;
+    }
+
+    shell.focused {
+        opacity: 1;
     }
 
 @media screen and (max-width: 750px) {

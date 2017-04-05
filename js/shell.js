@@ -329,13 +329,13 @@ function shell(element, opts = {
         sys_msg : '-yaoshell:'
     }) {
 
-    this.div = element;
+    this.element = element;
     this.max_log_size = 20;
     this.user = opts.user;
     this.host = opts.host;
     this.sys_msg_prompt = opts.sys_msg;
     var version = 'v' + tag('span', {}, V_MAJOR) + '.' + tag('span', {}, V_MINOR) + '.' + tag('key', {}, V_BUILD);
-    this.startup_info = tag('shln', {}, tag('span', {'style': 'color: yellow'}, '*>> yaoshell') + ' ' + version) + tag('shln', {}, '*>> type ' + tag('key', {}, 'help') + ' for available functions.');
+    this.startup_info = tag('shln', {}, tag('sys', {}, '*>> yaoshell') + ' ' + version) + tag('shln', {}, '*>> type ' + tag('key', {}, 'help') + ' for available functions.');
 
     this.is_printable = function(keycode) {
         return (keycode > 47 && keycode < 58)   || // number keys
@@ -347,6 +347,7 @@ function shell(element, opts = {
     }
 
     this.handle_input = function(e) {
+        if (!this.focused) return;
         if (e.keyCode == K_RETURN) {
             this.consume_cmd();
         } else if (e.keyCode == K_BACKSPACE) {
@@ -452,12 +453,11 @@ function shell(element, opts = {
 
     this.update = function() {
         curr_line = this.prompt() + this.cmd_buffer.prompt_string();
-        this.div.innerHTML = this.line_buffer + curr_line;
-        this.div.scrollTop = this.div.scrollHeight;
+        this.element.innerHTML = this.line_buffer + curr_line;
+        this.element.scrollTop = this.element.scrollHeight;
     }
 
     this.init = function() {
-        this.focussed = true;
         this.line_buffer = this.startup_info;
         this.curr_line = 0;
         this.node = root;
@@ -465,11 +465,24 @@ function shell(element, opts = {
         this.cmd_buffer = intro_buffer;
         this.cmd_log = new Stack(this.max_log_size);
         this.cmd_log.push(intro_buffer);
+        this.highlight(true);
+        this.focused = true;
         this.consume_cmd();
         this.update();
     }
 
-    this.onfocus = function() {
-
+    this.highlight = function(focus) {
+        var curr_classes = this.element.className === '' ? [] : this.element.className.split(' ');
+        var index = curr_classes.indexOf('focused');
+        if (focus) {
+            if (index == -1) {
+                curr_classes.push('focused');
+            }
+        } else {
+            if (index > -1) {
+                curr_classes.splice(index, 1);
+            }
+        }
+        this.element.className = curr_classes.join(' ');
     }
 }

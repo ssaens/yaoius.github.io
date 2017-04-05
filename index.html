@@ -2,16 +2,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <link rel='stylesheet' type='text/css' href='css/hex.css'>
     <link href="https://fonts.googleapis.com/css?family=Raleway:200|Source+Code+Pro|Source+Sans+Pro" rel="stylesheet">
 
     <title>Dillon Yao</title>
     <script src="https://use.fontawesome.com/d59afdec51.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    
+
 </head>
-    
+
 <body>
     <!--Nav-->
     <header>
@@ -57,15 +57,15 @@
                         <a href='#resume'>Résumé</a>
                     </li>
                 </ul>
-            </nav>        
+            </nav>
         </div>
     </header>
-    
+
     <!--Splash-->
     <div id='home' class='sec'>
         <shell></shell>
     </div>
-    
+
     <!--About-->
     <div id='about' class='sec'>
         <div class='col'>
@@ -74,12 +74,12 @@
 Sed vel urna tempor, fringilla magna et, accumsan enim. Nulla pulvinar ut nisl eget blandit. Nullam ultricies neque quis ex convallis cursus. Nam tristique tempus ex. Aenean vestibulum egestas pharetra. In hac habitasse platea dictumst. Nam quis finibus leo. Integer sit amet faucibus erat, sed aliquam nisi.</p>
         </div>
     </div>
-    
+
     <!--Projects-->
     <div id='projects' class='sec'>
         <div class='col'></div>
     </div>
-    
+
     <!--Resume-->
     <div id='resume' class='sec'>
         <div class='col'>
@@ -109,7 +109,7 @@ Sed vel urna tempor, fringilla magna et, accumsan enim. Nulla pulvinar ut nisl e
             <div id='resume_contents'></div>
         </div>
     </div>
-    
+
     <footer class='sec'>
         <div class=logo>
             <span id="footer_logo" style="height: 50px; width: 50px; background-color: red;"></span>
@@ -138,12 +138,13 @@ Sed vel urna tempor, fringilla magna et, accumsan enim. Nulla pulvinar ut nisl e
             </li>
         </ul>
     </footer>
-    
+
     <script src='js/resume.js'></script>
     <script src='js/shell.js'></script>
     <script>
-        home_shell = new shell(document.getElementsByTagName('shell')[0]);
-        home_shell.init()
+        var shell_elem = document.getElementsByTagName('shell')[0];
+        home_shell = new shell(shell_elem);
+        home_shell.init();
         window.addEventListener('keydown', function(e) {
             if ((e.keyCode == 32 || //space
                  e.keyCode == 38 || //left
@@ -154,7 +155,29 @@ Sed vel urna tempor, fringilla magna et, accumsan enim. Nulla pulvinar ut nisl e
             }
             home_shell.handle_input(e);
         });
-        
+
+        window.addEventListener('mousedown', function(e) {
+            var bbox = shell_elem.getBoundingClientRect();
+            if (bbox.left < e.clientX && e.clientX < bbox.left + bbox.width &&
+                bbox.top < e.clientY && e.clientY < bbox.top + bbox.height) {
+                home_shell.highlight(true);
+                home_shell.focused = true;
+            } else {
+                home_shell.highlight(false);
+                home_shell.focused = false;
+            }
+        });
+
+        shell_elem.addEventListener('mouseenter', function(e) {
+            home_shell.highlight(true);
+        });
+
+        shell_elem.addEventListener('mouseleave', function(e) {
+            if (!home_shell.focused) {
+                home_shell.highlight(false);
+            }
+        });
+
         var targeted = undefined;
         var header_height = 85;
         window.addEventListener('scroll', function(e) {
@@ -174,7 +197,7 @@ Sed vel urna tempor, fringilla magna et, accumsan enim. Nulla pulvinar ut nisl e
             }
         });
         build_resume();
-        
+
         $(document).ready(function(){
           // Add smooth scrolling to all links
           $("a").on('click', function(event) {
@@ -195,10 +218,13 @@ Sed vel urna tempor, fringilla magna et, accumsan enim. Nulla pulvinar ut nisl e
                   targeted = undefined;
               });
             } // End if
+
+
+
           });
         });
     </script>
-    
+
 </body>
-    
+
 </html>
