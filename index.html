@@ -16,28 +16,6 @@
     <!--Nav-->
     <header>
         <div class='col'>
-<!--
-            <canvas id="myCanvas" width="100" height="100" style="display:none;"></canvas>
-        <img id="canvasImg">
-        <script>
-            var canvas = document.getElementById('myCanvas');
-            var context = canvas.getContext('2d');
-            var w = canvas.width;
-            var h = canvas.height;
-            context.rect(1, 1, w-2, h-2);
-            context.lineWidth = 2;
-            context.strokeStyle = '#ffffff';
-            context.stroke();
-            context.moveTo(0, h);
-            context.lineTo(w, 0);
-            context.moveTo(0, 0);
-            context.lineTo(w/2, h/2);
-            context.lineWidth = 2;
-            context.stroke();
-            var dataURL = canvas.toDataURL();
-            document.getElementById('canvasImg').src = dataURL;
-        </script>
--->
             <div class='logo_container'>
                 <h1>DILLON YAO</h1>
             </div>
@@ -68,45 +46,74 @@
 
     <!--About-->
     <div id='about' class='sec'>
+        <div class='header_container parallax'>
+            <div class='header_text'>
+                <div class='col'>
+                    About Me
+                </div>
+            </div>
+        </div>
         <div class='col'>
+            <div class='container'>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent blandit eu sem in sodales. Donec at finibus nulla, in ornare eros. Nullam ac rutrum turpis, id dictum nulla. Nam posuere varius sodales. Vestibulum blandit id elit vel eleifend. Etiam arcu risus, fringilla at tempor non, maximus et purus. Nullam vel consectetur urna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
 
 Sed vel urna tempor, fringilla magna et, accumsan enim. Nulla pulvinar ut nisl eget blandit. Nullam ultricies neque quis ex convallis cursus. Nam tristique tempus ex. Aenean vestibulum egestas pharetra. In hac habitasse platea dictumst. Nam quis finibus leo. Integer sit amet faucibus erat, sed aliquam nisi.</p>
+            </div>
         </div>
     </div>
 
     <!--Projects-->
     <div id='projects' class='sec'>
-        <div class='col'></div>
+        <div class='header_container parallax'>
+            <div class='header_text'>
+                <div class='col'>
+                    Projects
+                </div>
+            </div>
+        </div>
+        <div class='col'>
+            <div class='container'>
+                <p>Comming Soon</p>
+            </div>
+        </div>
     </div>
 
     <!--Resume-->
     <div id='resume' class='sec'>
+        <div class='header_container parallax'>
+            <div class='header_text'>
+                <div class='col'>
+                    Resume
+                </div>
+            </div>
+        </div>
         <div class='col'>
-            <ul id='resume_links'>
-                <li>
-                    <a href="./index.html">
-                        <i class="fa fa-file-text fa-2x" aria-hidden="true"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="http://github.com/yaoius">
-                        <i class="fa fa-github fa-2x" aria-hidden="true"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="http://bitbucket.com">
-                        <i class="fa fa-bitbucket fa-2x" aria-hidden="true"></i>
+            <div class='container'>
+                <ul id='resume_links'>
+                    <li>
+                        <a href="./index.html">
+                            <i class="fa fa-file-text fa-2x" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://github.com/yaoius">
+                            <i class="fa fa-github fa-2x" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://bitbucket.org/dillon_yao/">
+                            <i class="fa fa-bitbucket fa-2x" aria-hidden="true"></i>
 
-                    </a>
-                </li>
-                <li>
-                    <a href="http://linkedin.com/me">
-                        <i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i>
-                    </a>
-                </li>
-            </ul>
-            <div id='resume_contents'></div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/dillon-yao-b24329102/">
+                            <i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                </ul>
+                <div id='resume_contents'></div>
+            </div>
         </div>
     </div>
 
@@ -121,13 +128,13 @@ Sed vel urna tempor, fringilla magna et, accumsan enim. Nulla pulvinar ut nisl e
                 </a>
             </li>
             <li>
-                <a href="http://bitbucket.com">
+                <a href="https://bitbucket.org/dillon_yao/">
                     <i class="fa fa-bitbucket fa-2x" aria-hidden="true"></i>
 
                 </a>
             </li>
             <li>
-                <a href="http://linkedin.com/me">
+                <a href="https://www.linkedin.com/in/dillon-yao-b24329102/">
                     <i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i>
                 </a>
             </li>
@@ -162,6 +169,7 @@ Sed vel urna tempor, fringilla magna et, accumsan enim. Nulla pulvinar ut nisl e
                 bbox.top < e.clientY && e.clientY < bbox.top + bbox.height) {
                 home_shell.highlight(true);
                 home_shell.focused = true;
+                home_shell.focus();
             } else {
                 home_shell.highlight(false);
                 home_shell.focused = false;
