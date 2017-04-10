@@ -243,6 +243,7 @@ shell {
 
     shell.focused {
         opacity: 1;
+        cursor: text;
     }
 
 @media screen and (max-width: 750px) {
