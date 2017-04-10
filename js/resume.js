@@ -72,6 +72,10 @@ var schools = [
                   '4.0', 'Senior', courses),
 ]
 
+var experiences = [
+    
+]
+
 /* Skills */
 var languages = [
     'Python',
@@ -83,6 +87,10 @@ var languages = [
     'SQL',
 ]
 
+var honors = [
+    
+]
+
 
 function build_resume() {
     
@@ -91,16 +99,24 @@ function build_resume() {
     schools.forEach(function(entry) {
         school_html += entry; 
     });
-    var education_sec = tag('div', {'class': 'resume_sec'}, edu_title + school_html);
+    var education_sec = tag('div', {'class': 'resume_sec', 'id': 'education'}, edu_title + school_html);
     
     var skills_title = tag('h2', {'class': 'title'}, 'Skills');
     var skills_sec = '';
     languages.forEach(function(entry) {
-        skills_sec += entry + BR;
+        skills_sec += tag('li', {}, entry);
     });
-    skills_sec = tag('div', {'class': 'resume_sec'}, skills_title + skills_sec);
+    skills_sec = tag('div', {'class': 'resume_sub_sec'}, skills_sec);
+    skills_sec = tag('div', {'class': 'l_col resume_sec', 'id' : 'skills'}, skills_title + skills_sec);
     
-    var resume_sections = [education_sec, skills_sec];
+    var honors_title = tag('h2', {'class': 'title'}, 'Honors');
+    var honors_sec = '';
+    honors.forEach(function(entry) {
+        honors_sec += tag('li', {}, entry);
+    })
+    honors_sec = tag('div', {'class': 'r_col resume_sec'}, honors_title + honors_sec);
+    
+    var resume_sections = [education_sec, skills_sec, honors_sec];
     var resume_html = '';
     resume_sections.forEach(function(sec) {
         resume_html += sec;

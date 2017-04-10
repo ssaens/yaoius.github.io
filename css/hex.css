@@ -36,13 +36,52 @@ a, a:visited {
 
 /* ==GENERAL COMPONENENTS== */
 div.sec, header.sec {
-    padding: 105px 0 40px 0;
+    padding: 0 0 40px 0;
     box-sizing: border-box;
     height: 100%;
 }
 
-div.col, header.col, footer.col {
+.col {
     margin: 0 12%;
+}
+
+.l_col {
+    width: 48%;
+    float: left;
+}
+
+.r_col {
+    width: 48%;
+    float: right;
+}
+
+div.header_container {
+    height: 135px;
+}
+
+.header_container .header_text {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    font-size: 30px;
+    color: white;
+    height: 50;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    font-family: Raleway, sans-serif;
+    text-transform: uppercase;
+}
+
+.header_container .header_text .col {
+    position: absolute;
+    bottom: 5px;
+}
+
+div.parallax {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .stretch {
@@ -50,6 +89,10 @@ div.col, header.col, footer.col {
     display: inline-block;
     font-size: 0;
     line-height: 0;
+}
+
+.container {
+    padding: 40px 0;
 }
 
 
@@ -215,6 +258,18 @@ shell {
     background-color: white;
 }
 
+#about .header_container {
+    background-image: url(../imgs/ducks_m_comp.jpg);
+}
+
+/* ==PROJECTS== */
+#projects {
+    color: white;
+}
+
+#projects .header_container {
+    background-image: url(../imgs/python_img_comp.png);   
+}
 
 /* ==RESUME== */
 #resume {
@@ -223,6 +278,10 @@ shell {
     display: table;
     width: 100%;
 }
+
+    #resume .header_container {
+        background-image: url(../imgs/campinile_comp.jpg);
+    }
 
     #resume_contents {
         display: table-cell;
@@ -292,6 +351,10 @@ shell {
 
         }
 
+#skills .resume_sub_sec {
+    columns: 2;
+}
+
     #resume_links {
         display: table-cell;
         width: 40px;
@@ -320,6 +383,12 @@ shell {
     #resume_contents .edu_header span.date {
         display: block;
         float: none;
+    }
+    
+    
+    #resume .l_col, .r_col {
+        position: relative;
+        width: 100%;
     }
 }
 
