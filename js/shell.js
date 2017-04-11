@@ -95,8 +95,7 @@ var exit_text = [
     'Please don\'t go',
     'I\'m lonely',
     'So lonely...',
-    'Dillon never updates me',
-    'Take me with you!',
+    'So very lonely...',
     'Fine then',
     'Try all you want, you aren\'t going anywhere',
     'I\'m not talking to you anymore',
@@ -115,7 +114,7 @@ function exit(shell, args) {
 }
 
 function clear(shell, args) {
-    shell.cmd_buffer = new input_buffer;
+    shell.cmd_buffer = new input_buffer();
     shell.error_count = 0;
     shell.line_buffer = [];
 }
@@ -130,6 +129,7 @@ function python(shell, args) {
 
 function ls(shell, args) {
     if (args.length == 0) {
+        var visible = [];
         shell.print(shell.node.children.join(TAB));
         return;
     }
@@ -259,7 +259,7 @@ var root = new file_node('~', DIR, [
     new file_node('resume', DIR, [
         new file_node('resume.txt', FILE, [], 'TODO: add resume.txt')
     ], ''),
-    new file_node('covers', DIR, [
+    new file_node('.stuff', DIR, [
 
     ], ''),
 ], '');
@@ -282,7 +282,7 @@ function input_buffer() {
 
     this.move_cursor = function(chars) {
         this.cursor -= chars;
-        this.cursor = Math.max(Math.min(this.cursor, this.chars.length - 1), 0);
+        this.cursor = Math.max(Math.min(this.cursor, this.chars.length), 0);
     }
 
     this.clear = function() {
