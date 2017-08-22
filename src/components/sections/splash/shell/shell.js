@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import FileSystem from './filesystem';
 import './shell.css';
 
 const SHELL_CONFIG = {
@@ -10,12 +11,6 @@ const SHELL_CONFIG = {
     V_MAJOR: 0,
     V_MINOR: 2,
     V_PATCH: 0
-};
-
-const PROGRAMS = {
-    pwd(fs, print) {
-
-    }
 };
 
 class LineBuffer {
@@ -206,6 +201,7 @@ class Shell extends Component {
     constructor(props) {
         super(props);
         this.lines = [];
+        this.fs = new FileSystem();
         this.state = { shouldUpdate: true };
     }
 
@@ -227,13 +223,19 @@ class Shell extends Component {
             </shln>
         );
         this.lines.push(output);
-        const tokens = line.split(' ').filter(Boolean);
-        const programName = tokens.shift();
-        const program = PROGRAMS[programName];
-        if (program) {
-            program(tokens, (line) => {this.print(line)});
-        } else {
-            this.sys(`${programName}: command not found`);
+
+        if (line) {
+            const tokens = line.split(' ').filter(Boolean);
+            const programName = tokens.shift();
+            const program = this.fs.resolveProgram(programName);
+            if (program) {
+                program(tokens, this.fs, {
+                    print: (line) => this.print(line),
+                    sys: (line) => this.sys(line)
+                });
+            } else {
+                this.sys(`${programName}: command not found`);
+            }
         }
         this.setState({ shouldUpdate: true });
     }

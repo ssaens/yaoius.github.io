@@ -6,7 +6,7 @@ div.shell {
     height: 500px;
     overflow-y: hidden;
     border: 1px solid black;
-    font-family: monospace;
+    font-family: "Courier New", monospace;
 }
 
 div.shell-content {
