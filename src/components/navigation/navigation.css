@@ -1,0 +1,20 @@
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    overflow-x: hidden;
+    background-color: lightblue;
+    z-index: 100;
+    transition: ease-out 0.5s;
+}
+
+nav.open {
+    width: 300px;
+}
+
+.navigation-toggle {
+    position: fixed;
+    margin-left: 0;
+}
