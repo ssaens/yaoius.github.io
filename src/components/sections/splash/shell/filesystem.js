@@ -177,7 +177,7 @@ const HOME = new DirNode('guest', [
         'README.md',
         [
             'Hello',
-            <b>Dillon Yao</b>,
+            <b key="b">Dillon Yao</b>,
             'There'
         ]
     )

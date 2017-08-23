@@ -46,7 +46,7 @@ class LineBuffer {
             do {
                 if (currNode.prev === this.cursor) {
                     jsx.push(content.join(''));
-                    jsx.push(<crsr>{currNode.value}</crsr>);
+                    jsx.push(<crsr key="crsr">{currNode.value}</crsr>);
                     content = [];
                 } else if (currNode !== this.sentinel) {
                     content.push(currNode.value);
@@ -278,6 +278,18 @@ class Shell extends Component {
     }
 
     componentDidMount() {
+        const versionString = 0;
+        const loadInfo = [
+            <sys key="sys">*>> yaoshell</sys>,
+            'v0.0.0'
+        ];
+        const helpInfo = [
+            '*>> type ',
+            <lblue key="lblue">help</lblue>,
+            ' for available functions'
+        ];
+        this.print(loadInfo);
+        this.print(helpInfo);
         this.parse('cat README.md');
     }
 
