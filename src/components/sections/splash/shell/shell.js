@@ -16,13 +16,14 @@ const SHELL_CONFIG = {
 
 class LineBuffer {
     constructor() {
-        this.sentinel = { value: '' };
+        this.sentinel = { value: ' ' };
         this.clearContent();
     }
 
     clearContent() {
         this.sentinel.prev = this.sentinel.next = this.sentinel;
         this.cursor = this.sentinel;
+        this._invalidateCache();
     }
 
     setContent(content) {
@@ -30,16 +31,47 @@ class LineBuffer {
         for (const c of content) {
             this.pushChar(c);
         }
+        this._invalidateCache();
+    }
+
+    empty() {
+        return this.sentinel.next === this.sentinel;
+    }
+
+    toJsx() {
+        if (!this._cachedJSX) {
+            let content = [];
+            const jsx = [];
+            let currNode = this.sentinel.next;
+            do {
+                if (currNode.prev === this.cursor) {
+                    jsx.push(content.join(''));
+                    jsx.push(<crsr>{currNode.value}</crsr>);
+                    content = [];
+                } else if (currNode !== this.sentinel) {
+                    content.push(currNode.value);
+                }
+                currNode = currNode.next;
+            } while (currNode.prev !== this.sentinel);
+            if (content.length) {
+                jsx.push(content.join(''));
+            }
+            this._cachedJSX = jsx;
+        }
+        return this._cachedJSX;
     }
 
     toString() {
-        const content = [];
-        let curr_node = this.sentinel;
-        do {
-            content.push(curr_node.value);
-            curr_node = curr_node.next;
-        } while (curr_node !== this.sentinel);
-        return content.join('');
+        if (!this._cachedString) {
+            const content = [];
+            let currNode = this.sentinel.next;
+            while (currNode !== this.sentinel) {
+                content.push(currNode.value);
+                currNode = currNode.next;
+            }
+            this._cachedString = content.join('');
+        }
+        return this._cachedString;
     }
 
     pushChar(c) {
@@ -51,6 +83,7 @@ class LineBuffer {
         node.prev.next = node;
         node.next.prev = node;
         this.cursor = node;
+        this._invalidateCache();
     }
 
     popChar() {
@@ -58,18 +91,26 @@ class LineBuffer {
         cursor.prev.next = cursor.next;
         cursor.next.prev = cursor.prev;
         this.cursor = cursor.prev;
+        this._invalidateCache();
     }
 
     incrementCursor() {
         if (this.cursor.next !== this.sentinel) {
             this.cursor = this.cursor.next;
+            this._invalidateCache(false);
         }
     }
 
     decrementCursor() {
         if (this.cursor !== this.sentinel) {
             this.cursor = this.cursor.prev;
+            this._invalidateCache(false);
         }
+    }
+
+    _invalidateCache(invalidateString=true) {
+        this._cachedJSX = false;
+        if (invalidateString) this._cachedString = false;
     }
 }
 
@@ -81,7 +122,7 @@ class InputLine extends Component {
         const buffer = new LineBuffer();
         this.bufferChain = { buffer };
         this.state = {
-            inputValue: buffer.toString(),
+            inputValue: buffer.toJsx(),
             currentBuffer: buffer
         };
         window.addEventListener('keydown', this._handleKeydown)
@@ -90,10 +131,9 @@ class InputLine extends Component {
     render() {
         return (
             <shln>
-                <o>{SHELL_CONFIG.USER}</o>
-                @
-                <b>{SHELL_CONFIG.HOST}</b>
-                {`:${this.props.path}> ${this.state.inputValue}`}
+                <user>{SHELL_CONFIG.USER}</user>@
+                <guest>{SHELL_CONFIG.HOST}</guest>
+                {`:${this.props.path}> `}{this.state.inputValue}
             </shln>
         );
     }
@@ -106,7 +146,7 @@ class InputLine extends Component {
         const buffer = new LineBuffer();
         this.bufferChain = { buffer };
         this.setState({
-            inputValue: buffer.toString(),
+            inputValue: buffer.toJsx(),
             currentBuffer: buffer
         })
     }
@@ -127,7 +167,7 @@ class InputLine extends Component {
             this.bufferChain = this.bufferChain.next;
             this.bufferChain.buffer.cursor = this.bufferChain.buffer.sentinel.prev;
             this.setState({
-                inputValue: this.bufferChain.buffer.toString(),
+                inputValue: this.bufferChain.buffer.toJsx(),
                 currentBuffer: this.bufferChain.buffer
             });
         }
@@ -156,21 +196,21 @@ class InputLine extends Component {
         }
         if (update) {
             this.setState({
-                inputValue: this.bufferChain.buffer.toString(),
+                inputValue: this.bufferChain.buffer.toJsx(),
                 currentBuffer: this.bufferChain.buffer
             });
         }
     }
 
     _autoResolve() {
-        const currentInput = this.state.inputValue;
-        const resolved = this.props.autoResolve(currentInput, this.tabbed);
+        const currentInputValue = this.state.currentBuffer.toString();
+        const resolved = this.props.autoResolve(currentInputValue, this.tabbed);
         if (resolved) {
             for (const c of resolved) {
                 this.state.currentBuffer.pushChar(c);
             }
             this.tabbed = false;
-            const inputValue = this.state.currentBuffer.toString();
+            const inputValue = this.state.currentBuffer.toJsx();
             this.setState({ inputValue });
         }
     }
@@ -216,7 +256,7 @@ class InputLine extends Component {
         if (shouldUpdate) {
             this.tabbed = false;
             this.setState({
-                inputValue: buffer.toString(),
+                inputValue: buffer.toJsx(),
             });
         }
     };
@@ -265,7 +305,8 @@ class Shell extends Component {
         const path = this.fs.getLocationString();
         const output = (
             <shln key={this.lines.length}>
-                <o>{SHELL_CONFIG.USER}</o>@<b>{SHELL_CONFIG.HOST}</b>:{path}> {line}
+                <user>{SHELL_CONFIG.USER}</user>@
+                <guest>{SHELL_CONFIG.HOST}</guest>:{path}> {line}
             </shln>
         );
         this.lines.push(output);
@@ -296,8 +337,8 @@ class Shell extends Component {
             const path = this.fs.getLocationString();
             const output = (
                 <shln key={this.lines.length}>
-                    <o>{SHELL_CONFIG.USER}</o>
-                    @<b>{SHELL_CONFIG.HOST}</b>:{path}> {line}
+                    <user>{SHELL_CONFIG.USER}</user>
+                    @<guest>{SHELL_CONFIG.HOST}</guest>:{path}> {line}
                 </shln>
             );
             this.lines.push(output);

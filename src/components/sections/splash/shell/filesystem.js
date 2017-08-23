@@ -1,4 +1,5 @@
 import React from 'react';
+import { longestCommonPrefix } from '../../../../services/utils';
 
 const NODE_TYPE = {
     DIR: 'dir',
@@ -85,6 +86,25 @@ const PROGRAMS = {
         out.print(fs.wd.getAbsolutePath());
     },
 
+    la(args, fs, out) {
+        let node = fs.wd;
+        if (args && args[0]) {
+            let resolvedNode = fs.resolve(args[0]);
+            if (!resolvedNode) {
+                out.sys(`ls: ${args[0]}: No such file or directory`);
+                return;
+            }
+            if (resolvedNode.type !== NODE_TYPE.DIR) {
+                out.print(args[0]);
+                return;
+            }
+            node = resolvedNode;
+        }
+        out.print(node.children
+            .map(child => child.name)
+            .join('\u00A0\u00A0'));
+    },
+
     ls(args, fs, out) {
         let node = fs.wd;
         if (args && args[0]) {
@@ -149,16 +169,10 @@ const PROGRAMS = {
     }
 };
 
-const BIN = new DirNode(
-    '.bin',
-    Object.entries(PROGRAMS).map(([name, program]) => new ExeNode(name, program))
-);
-
 const HOME = new DirNode('guest', [
     new DirNode('about'),
     new DirNode('experience'),
     new DirNode('projects'),
-    new DirNode('expa'),
     new FileNode(
         'README.md',
         [
@@ -170,9 +184,9 @@ const HOME = new DirNode('guest', [
 ]);
 
 const ROOT = new DirNode('', [
-    BIN,
+    new DirNode('.bin', Object.entries(PROGRAMS).map(([name, program]) => new ExeNode(name, program))),
     new DirNode('Users', [
-        HOME
+        HOME,
     ])
 ]);
 
@@ -240,7 +254,7 @@ class FileSystem {
             if (possibilities.length === 1 && possibilities[0].type === NODE_TYPE.EXE) {
                 return `${possibilities[0].name} `;
             }
-            const lcp = this._longestCommonPrefix(possibilities.map(node => node.name));
+            const lcp = longestCommonPrefix(possibilities.map(node => node.name));
             if (lcp) return lcp;
         }
         return null;
@@ -252,14 +266,16 @@ class FileSystem {
             const resolved = possibilities[0];
             return resolved.type === NODE_TYPE.DIR ? `${resolved.name}/` : `${resolved.name} `;
         }
-        return this._longestCommonPrefix(possibilities.map(node => node.name));
+        return longestCommonPrefix(possibilities.map(node => node.name));
     }
 
     getProgramPossibilities(name) {
+        const allPossible = [];
         for (const path of PATH) {
             const possibilities = this._getPossibilities(`${path}/${name}`);
-            return possibilities.map(node => node.name);
+            allPossible.push(...possibilities);
         }
+        return allPossible;
     }
 
     getPathPossibilities(path) {
@@ -284,23 +300,6 @@ class FileSystem {
             }
         }
         return possibilities;
-    }
-
-    _longestCommonPrefix(strings) {
-        let lcp = null;
-        for (const s of strings) {
-            if (lcp === null) {
-                lcp = s;
-                continue;
-            }
-            for (let i = 0; i < lcp.length; ++i) {
-                if (s.charAt(i) !== lcp.charAt(i)) {
-                    lcp = lcp.substring(0, i);
-                    break;
-                }
-            }
-        }
-        return lcp;
     }
 }
 

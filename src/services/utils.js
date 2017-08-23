@@ -4,6 +4,23 @@ function strip(s) {
 
 }
 
+function longestCommonPrefix(strings) {
+    let lcp = null;
+    for (const s of strings) {
+        if (lcp === null) {
+            lcp = s;
+            continue;
+        }
+        for (let i = 0; i < lcp.length; ++i) {
+            if (s.charAt(i) !== lcp.charAt(i)) {
+                lcp = lcp.substring(0, i);
+                break;
+            }
+        }
+    }
+    return lcp;
+}
+
 function leftTrim(s) {
     return s.replace(/^\s+/,"");
 }
@@ -27,6 +44,7 @@ function keyedJSXList(list) {
 export {
     strip,
     leftTrim,
+    longestCommonPrefix,
     normalizeSpaces,
     keyedJSXList
 }

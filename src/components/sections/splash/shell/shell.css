@@ -14,10 +14,47 @@ shln {
     white-space: pre-wrap;
 }
 
-shln o {
+shln color-o {
     color: orange;
 }
 
-shln b {
+shln color-b {
     color: blue;
+}
+
+shln sys {
+
+}
+
+shln user {
+
+}
+
+shln guest {
+
+}
+
+shln crsr {
+    background-color: rgb(253, 148, 8);
+    color: black;
+    animation-timing-function: steps(1, end);
+    animation-name: cursor_blink;
+        -webkit-animation-name: cursor_blink;
+    animation-duration: 1.5s;
+        -webkit-animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes cursor_blink {
+    0% {background-color: rgb(253, 148, 8);}
+    50% {background-color: rgb(20, 23, 27);
+        color: white;}
+    100% {background-color: rgb(253, 148, 8);}
+}
+
+@-webkit-keyframes cursor_blink {
+    0% {background-color: rgb(253, 148, 8);}
+    50% {background-color: rgb(20, 23, 27);
+        color: white;}
+    100% {background-color: rgb(253, 148, 8);}
 }
