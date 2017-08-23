@@ -1,3 +1,4 @@
+import React from 'react';
 
 const NODE_TYPE = {
     DIR: 'dir',
@@ -16,19 +17,33 @@ class FileSystemNode {
         this.parent = null;
     }
 
+    getDisplayPath() {
+        const path = [];
+        let node = this;
+        do {
+            if (node === HOME) {
+                path.push('~');
+                break;
+            }
+            path.push(node.name);
+            node = node.parent;
+        } while (node);
+        return path.reverse().join('/') || '/';
+    }
+
     getAbsolutePath() {
         const path = [this.name];
         let node = this.parent;
         while (node) {
             path.push(node.name);
-            node = this.parent;
+            node = node.parent;
         }
-        return `/${path.reverse().join('/')}`;
+        return path.reverse().join('/') || '/';
     }
 }
 
 class DirNode extends FileSystemNode {
-    constructor(name, children) {
+    constructor(name, children=[]) {
         super(NODE_TYPE.DIR, name);
         this.children = children;
         for (const child of children) {
@@ -38,12 +53,13 @@ class DirNode extends FileSystemNode {
 }
 
 class FileNode extends FileSystemNode {
-    constructor(name) {
+    constructor(name, content) {
         super(NODE_TYPE.FILE, name);
+        this.content = content;
     }
 
-    contents() {
-
+    toString() {
+        return this.content;
     }
 }
 
@@ -53,7 +69,7 @@ class ExeNode extends FileSystemNode {
         this.program = program;
     }
 
-    contents() {
+    toString() {
         return this.program.toString();
     }
 }
@@ -95,29 +111,52 @@ const PROGRAMS = {
             out.sys(`cat: ${target}: Is a directory`);
             return;
         }
-        out.print(node.contents());
+        out.print(node.toString());
     },
 
     echo(args, fs, out) {
         out.print(args.join(' '));
+    },
+
+    clear(args, fs, out) {
+        out.clear();
+    },
+
+    reset(args, fs, out) {
+        out.reset();
     }
 };
 
+const BIN = new DirNode(
+    '.bin',
+    Object.entries(PROGRAMS).map(([name, program]) => new ExeNode(name, program))
+);
+
+const HOME = new DirNode('guest', [
+    new DirNode('about'),
+    new DirNode('experience'),
+    new DirNode('projects'),
+    new FileNode(
+        'README.md',
+        [
+            'Hello',
+            <b>Dillon Yao</b>,
+            'There'
+        ]
+    )
+]);
+
 const ROOT = new DirNode('', [
-    new DirNode('.bin', [
-        new ExeNode('pwd', PROGRAMS.pwd),
-        new ExeNode('ls', PROGRAMS.ls),
-        new ExeNode('cd', PROGRAMS.cd),
-        new ExeNode('cat', PROGRAMS.cat),
-        new ExeNode('echo', PROGRAMS.echo)
+    BIN,
+    new DirNode('Users', [
+        HOME
     ])
 ]);
 
 class FileSystem {
     constructor() {
         this.root = ROOT;
-        this.home = ROOT;
-        this.wd = ROOT;
+        this.home = this.wd = HOME;
     }
 
     resolveProgram(programName) {
@@ -147,8 +186,10 @@ class FileSystem {
         for (const token of tokens) {
             if (token === '' || token === '.') {
                 continue;
-            } else if (node.parent && token === '..') {
-                node = node.parent;
+            } else if (token === '..') {
+                if (node.parent) {
+                    node = node.parent;
+                }
                 continue;
             }
             let success = false;
@@ -166,8 +207,8 @@ class FileSystem {
         return node;
     }
 
-    getChildren() {
-
+    getLocationString() {
+        return this.wd.getDisplayPath();
     }
 }
 

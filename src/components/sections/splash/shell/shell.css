@@ -3,15 +3,10 @@ div.shell {
     right: 20%;
     top: 20%;
     width: 600px;
-    height: 500px;
+    height: 12em;
     overflow-y: hidden;
     border: 1px solid black;
     font-family: "Courier New", monospace;
-}
-
-div.shell-content {
-    position: absolute;
-    bottom: 0;
 }
 
 shln {

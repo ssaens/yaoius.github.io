@@ -89,7 +89,10 @@ class InputLine extends Component {
     render() {
         return (
             <shln>
-                <o>{SHELL_CONFIG.USER}</o>@<b>{SHELL_CONFIG.HOST}</b>{`: ${this.state.inputValue}`}
+                <o>{SHELL_CONFIG.USER}</o>
+                @
+                <b>{SHELL_CONFIG.HOST}</b>
+                {`:${this.props.path}> ${this.state.inputValue}`}
             </shln>
         );
     }
@@ -159,7 +162,9 @@ class InputLine extends Component {
     }
 
     _handleKeydown = (e) => {
-        e.preventDefault();
+        if (e.metaKey) {
+            return;
+        }
 
         const key = e.key;
         const buffer = this.state.currentBuffer;
@@ -188,6 +193,10 @@ class InputLine extends Component {
             shouldUpdate = true;
         }
 
+        if (key === ' ') {
+            e.preventDefault();
+        }
+
         if (shouldUpdate) {
             this.setState({
                 inputValue: buffer.toString(),
@@ -202,24 +211,44 @@ class Shell extends Component {
         super(props);
         this.lines = [];
         this.fs = new FileSystem();
+        this.out = {
+            print: (line) => this.print(line),
+            sys: (line) => this.sys(line),
+            clear: () => this.clear(),
+            reset: () => this.reset()
+        };
         this.state = { shouldUpdate: true };
+    }
+
+    componentDidMount() {
+        this.parse('cat README.md');
     }
 
     render() {
         return (
-            <div className="shell">
-                <div className="shell-content">
-                    {this.lines}
-                    <InputLine parse={ (line) => this.parse(line) }/>
-                </div>
+            <div
+                className="shell"
+                ref={$ => this.$ = $}
+                key={this.i}
+            >
+                {this.lines}
+                <InputLine
+                    path={this.fs.getLocationString()}
+                    parse={ (line) => this.parse(line) }
+                />
             </div>
         );
     }
 
+    componentDidUpdate() {
+        this.$.scrollTop = this.$.scrollHeight;
+    }
+
     parse(line) {
+        const path = this.fs.getLocationString();
         const output = (
             <shln key={this.lines.length}>
-                <o>{SHELL_CONFIG.USER}</o>@<b>{SHELL_CONFIG.HOST}</b>: {line}
+                <o>{SHELL_CONFIG.USER}</o>@<b>{SHELL_CONFIG.HOST}</b>:{path}> {line}
             </shln>
         );
         this.lines.push(output);
@@ -229,10 +258,7 @@ class Shell extends Component {
             const programName = tokens.shift();
             const program = this.fs.resolveProgram(programName);
             if (program) {
-                program(tokens, this.fs, {
-                    print: (line) => this.print(line),
-                    sys: (line) => this.sys(line)
-                });
+                program(tokens, this.fs, this.out);
             } else {
                 this.sys(`${programName}: command not found`);
             }
@@ -247,6 +273,18 @@ class Shell extends Component {
 
     sys(msg) {
         this.lines.push(<shln key={this.lines.length}><sys>{SHELL_CONFIG.SYS_MSG}: </sys>{msg}</shln>)
+    }
+
+    clear() {
+        this.lines = [];
+        this.setState({ shouldUpdate: true });
+    }
+
+    reset() {
+        this.lines = [];
+        this.fs = new FileSystem();
+        this.setState({shouldUpdate: true});
+        this.componentDidMount();
     }
 }
 
