@@ -285,7 +285,7 @@ class FileSystem {
     _getPossibilities(path) {
         const tokens = path.split('/');
         const toComplete = tokens.pop();
-        let subPath = tokens.join('');
+        let subPath = tokens.join('/');
         if (path.startsWith('/')) {
             subPath = `/${subPath}`
         }
