@@ -1,0 +1,75 @@
+<sec id='education'>
+    <subsec name='cs_courses'>
+        <entry>
+            <code>CS61A</code>
+            <name>The structure and interpretation of computer programs</name>
+        </entry>
+        <entry>
+            <code>CS61B</code>
+            <name>Data Structures</name>
+        </entry>
+        <entry>
+            <code>CS61C</code>
+            <name>Great Ideas in Computer Architecture</name>
+        </entry>
+        <entry>
+            <code>CS70</code>
+            <name>Discrete Math and Probability Theory</name>
+        </entry>
+        <entry>
+            <code>CS170</code>
+            <name>Efficient Algorithms and Intractibility Theory</name>
+        </entry>
+        <entry>
+            <code>CS184</code>
+            <name>Foundations of Computer Graphics</name>
+        </entry>
+        <entry>
+            <code>CS188</code>
+            <name>Introduction to AI</name>
+        </entry>
+        <entry>
+            <code>CS161</code>
+            <name>Computer Security</name>
+        </entry>
+    </subsec>
+    <subsect name='ee_courses'>
+        <entry>
+            <code>EE16A/B</code>
+            <name>Designing Information Devices and Systems</name>
+        </entry>
+    </subsect>    
+</sec>
+
+<sec id='work_experience'>
+    <entry>
+        <title>CS61A Course Tutor</title>
+        <start>Fall 2016</start>
+        <end>Spring 2017</end>
+    </entry>
+</sec>
+
+<sec id='skills'>
+    <subsec name='languages'>
+        <entry>Python</entry>
+        <entry>Java</entry>
+        <entry>C/C++</entry>
+        <entry>MIPS</entry>
+        <entry>Scheme</entry>
+        <entry>HTML/CSS</entry>
+    </subsec>
+</sec>
+
+<sec id='organizations_and_honors'>
+    <entry>
+        <name>Tau Beta Pi</name>
+        <start>Spring 2015</start>
+        <end>Present</end>
+        <desc>Engineering Honor Society</desc>
+    </entry>
+    <entry>
+        <name>Dean's List</name>
+        <start>Fall 2015</start>
+        <end>Present</end>
+    </entry>
+</sec>

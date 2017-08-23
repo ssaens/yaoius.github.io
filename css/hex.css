@@ -1,0 +1,448 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: rgb(20, 23, 27);
+    color: black;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+div, nav {
+    position: relative;
+    display: block;
+}
+
+p, h1, h2, h3, h4, div {
+    margin: 0;
+    font-weight: 200;
+}
+
+p {
+    margin: 1em 0;
+}
+
+a, a:visited {
+    color: rgb(20, 59, 119);
+}
+
+/* ==PALETTE== */
+/*
+ * Background: rgb(20, 23, 27)
+ * Orange: rgb(253, 148, 8)
+ * Red: rgb(133, 1, 11)
+ * Blue: rgb(20, 59, 119)
+ * Green: rgb(47, 67, 34)
+ */
+
+/* ==GENERAL COMPONENENTS== */
+div.sec, header.sec {
+    padding: 0 0 40px 0;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.col {
+    margin: 0 12%;
+}
+
+.l_col {
+    width: 48%;
+    float: left;
+}
+
+.r_col {
+    width: 48%;
+    float: right;
+}
+
+div.header_container {
+    height: 135px;
+}
+
+.header_container .header_text {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    font-size: 30px;
+    color: white;
+    height: 50;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    font-family: Raleway, sans-serif;
+    text-transform: uppercase;
+}
+
+.header_container .header_text .col {
+    position: absolute;
+    bottom: 5px;
+}
+
+div.parallax {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.stretch {
+    width: 100%;
+    display: inline-block;
+    font-size: 0;
+    line-height: 0;
+}
+
+.container {
+    padding: 40px 0;
+}
+
+
+/* ==NAVIGATION== */
+header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    z-index: 100;
+    background-color: rgb(20, 23, 27);
+    font-family: Raleway, sans-serif;
+    padding: 20px 0px;
+    overflow: auto;
+    color: white;
+}
+
+header div.col {
+    border-bottom: 2px solid rgb(253, 148, 8);
+}
+
+    header div.logo_container {
+        display: inline-block;
+    }
+
+    div.logo_container h1  {
+        margin-bottom: 0.2em;
+    }
+
+    header nav {
+        position: absolute;
+        right: 0;
+        bottom: 0.5em;
+    }
+
+    header nav ul {
+        padding: 0;
+        margin: 0;
+    }
+
+    header nav ul li {
+        display: inline-block;
+        padding-right: 40px;
+        text-align: right;
+    }
+
+    header nav ul li:last-child {
+        padding-right: 0;
+    }
+
+    header nav ul li a, header nav ul li a:visited {
+        text-decoration: none;
+        font-size: 1.1em;
+        color: lightblue;
+        transition: 0.2s ease-in-out;
+    }
+
+    header nav ul li a.active {
+        color: white;
+    }
+
+    header nav ul li a:hover {
+        color: white;
+    }
+
+@media screen and (max-width: 750px) {
+    header nav {
+        position: relative;
+    }
+}
+
+/* ==HOME== */
+#home {
+    height: 100%;
+    padding: 0;
+}
+
+/* ==SHELL== */
+shell {
+    position: absolute;
+    height: 285px;
+    width: 525px;
+    right: 12%;
+    top: 50%;
+    transform: translate(0, -50%);
+    overflow-y: hidden;
+    font-family: 'Source Code Pro', monospace;
+    color: white;
+    opacity: 0.8;
+    transition: 0.3s;
+}
+
+    shell::-webkit-scrollbar {
+        display: none;
+    }
+
+    shell host {
+        color: lightblue;
+    }
+
+    shell user {
+        color: rgb(253, 148, 8);
+    }
+
+    shell shln {
+        display: block;
+        line-height: 1.4em;
+    }
+
+    shell crsr {
+        background-color: rgb(253, 148, 8);
+        color: black;
+        animation-timing-function: steps(1, end);
+        -webkit-animation-name: cursor_blink; /* Chrome, Safari, Opera */
+        -webkit-animation-duration: 1.5s; /* Chrome, Safari, Opera */
+        animation-name: cursor_blink;
+        animation-duration: 1.5s;
+        animation-iteration-count: infinite;
+    }
+
+    @keyframes cursor_blink {
+        0% {background-color: rgb(253, 148, 8);}
+        50% {background-color: rgb(20, 23, 27);
+            color: white;}
+        100% {background-color: rgb(253, 148, 8);}
+    }
+
+    @-webkit-keyframes cursor_blink {
+        0% {background-color: rgb(253, 148, 8);}
+        50% {background-color: rgb(20, 23, 27);
+            color: white;}
+        100% {background-color: rgb(253, 148, 8);}
+    }
+
+    shell dir {
+        display: inline;
+        padding: 0;
+        color: yellow;
+    }
+
+    shell key {
+        color: lightblue;
+    }
+
+    shell sys {
+        color: yellow;
+    }
+
+    shell.focused {
+        opacity: 1;
+        cursor: text;
+    }
+
+@media screen and (max-width: 750px) {
+    shell {
+        width: 300px;
+        right: 50%;
+        transform: translate(50%, -50%);
+    }
+}
+
+/* ==ABOUT== */
+#about {
+    background-color: white;
+}
+
+#about .header_container {
+    background-image: url(../imgs/ducks_m_comp.jpg);
+}
+
+/* ==PROJECTS== */
+#projects {
+    color: white;
+}
+
+#projects .header_container {
+    background-image: url(../imgs/python_img_comp.png);   
+}
+
+/* ==RESUME== */
+#resume {
+    background-color: white;
+    color: black;
+    display: table;
+    width: 100%;
+}
+
+    #resume .header_container {
+        background-image: url(../imgs/campinile_comp.jpg);
+    }
+
+    #resume_contents {
+        display: table-cell;
+        width: auto;
+        vertical-align: top;
+    }
+
+    #resume_contents div.resume_sec {
+        padding-bottom: 30px;
+    }
+
+    #resume_contents div.resume_sec h2.title {
+        color: rgb(133, 1, 11);
+        text-transform: uppercase;
+        border-bottom: 2px solid rgb(253, 148, 8);
+        margin-bottom: 0.25em;
+    }
+
+        #resume_contents .edu_header {
+            color: black;
+            padding: 0.25em 0 0.25em 17px;
+            font-size: 1.2em;
+            border-left: 7px solid rgb(253, 148, 8);
+        }
+
+        #resume_contents .edu_header span.date {
+            float: right;
+        }
+
+        #resume_contents div.entry_data {
+            padding: 0 0 0.25em 47px;
+            border-left: 7px solid rgb(20, 59, 119);
+        }
+
+        #resume_contents ul.edu_entry_info {
+            padding: 0 0 0.5em 0;
+            margin: 0;
+            list-style: none;
+            color: grey;
+            border-bottom: 1px solid black;
+        }
+
+        #resume_contents span.info_head {
+            font-weight: 600;
+            color: black;
+        }
+
+        #resume_contents h3.courses_head {
+            color: rgb(20, 59, 119);
+            margin: 0.3em 0;
+            font-size: 1.2em;
+        }
+
+        #resume_contents div.courses {
+            column-count: 2;
+        }
+
+        #resume_contents div.courses div.course {
+            margin-bottom: 0.3em;
+        }
+
+        #resume_contents span.code {
+            color: rgb(223, 128, 4);
+        }
+
+        #resume_contents span.name {
+
+        }
+
+#skills .resume_sub_sec {
+    columns: 2;
+}
+
+    #resume_links {
+        display: table-cell;
+        width: 40px;
+        padding: 0;
+        text-align: center;
+        list-style: none;
+    }
+
+    #resume_links li {
+        margin: 0 1.5em 1em 0;
+    }
+
+    #resume_links li:first-child {
+        margin-top: 0.5em;
+    }
+
+    #resume_links a:hover {
+        color: rgb(253, 148, 8);
+    }
+
+@media screen and (max-width: 750px) {
+    #resume_contents div.courses {
+        columns: 1;
+    }
+
+    #resume_contents .edu_header span.date {
+        display: block;
+        float: none;
+    }
+    
+    
+    #resume .l_col, .r_col {
+        position: relative;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    #resume {
+        display: relative;
+    }
+
+    #resume_links {
+        display: block;
+        width: 100%;
+        margin: 0;
+    }
+
+    #resume_links li {
+        float: left;
+        margin-right: 2em;
+    }
+
+    #resume_links li:first-child {
+        margin-top: 0;
+    }
+}
+
+/* ==FOOTER== */
+footer {
+    position: relative;
+    height: 200px;
+    width: 100%;
+}
+
+footer ul {
+    color: white;
+    list-style: none;
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+}
+
+footer li {
+    text-align: center;
+    display: inline-block;
+    margin: 0 20px;
+}
+
+footer ul li a, footer ul li a:visited {
+    color: white;
+}
+
+footer ul li a:hover {
+    color: lightblue;
+}
