@@ -18,27 +18,33 @@ class FileSystemNode {
     }
 
     getDisplayPath() {
-        const path = [];
-        let node = this;
-        do {
-            if (node === HOME) {
-                path.push('~');
-                break;
-            }
-            path.push(node.name);
-            node = node.parent;
-        } while (node);
-        return path.reverse().join('/') || '/';
+        if (!this._displayPath) {
+            const path = [];
+            let node = this;
+            do {
+                if (node === HOME) {
+                    path.push('~');
+                    break;
+                }
+                path.push(node.name);
+                node = node.parent;
+            } while (node);
+            this._displayPath = path.reverse().join('/') || '/';
+        }
+        return this._displayPath;
     }
 
     getAbsolutePath() {
-        const path = [this.name];
-        let node = this.parent;
-        while (node) {
-            path.push(node.name);
-            node = node.parent;
+        if (!this._absolutePath) {
+            const path = [this.name];
+            let node = this.parent;
+            while (node) {
+                path.push(node.name);
+                node = node.parent;
+            }
+            this._absolutePath = path.reverse().join('/') || '/';
         }
-        return path.reverse().join('/') || '/';
+        return this._absolutePath;
     }
 }
 
@@ -80,7 +86,23 @@ const PROGRAMS = {
     },
 
     ls(args, fs, out) {
-        out.print(fs.wd.children.map(child => child.name).join('\u00A0\u00A0'));
+        let node = fs.wd;
+        if (args && args[0]) {
+            let resolvedNode = fs.resolve(args[0]);
+            if (!resolvedNode) {
+                out.sys(`ls: ${args[0]}: No such file or directory`);
+                return;
+            }
+            if (resolvedNode.type !== NODE_TYPE.DIR) {
+                out.print(args[0]);
+                return;
+            }
+            node = resolvedNode;
+        }
+        out.print(node.children
+            .filter(child => !child.name.startsWith('.'))
+            .map(child => child.name)
+            .join('\u00A0\u00A0'));
     },
 
     cd(args, fs, out) {
@@ -136,6 +158,7 @@ const HOME = new DirNode('guest', [
     new DirNode('about'),
     new DirNode('experience'),
     new DirNode('projects'),
+    new DirNode('expa'),
     new FileNode(
         'README.md',
         [
@@ -159,18 +182,23 @@ class FileSystem {
         this.home = this.wd = HOME;
     }
 
+    getLocationString() {
+        return this.wd.getDisplayPath();
+    }
+
     resolveProgram(programName) {
         for (const path of PATH) {
-            const fileNode = this.resolve(path);
-            if (fileNode.type === NODE_TYPE.DIR) {
-                for (const child of fileNode.children) {
-                    if (child.type === NODE_TYPE.EXE && child.name === programName) {
-                        return child.program;
-                    }
+            const fileNode = this.resolve(`${path}/${programName}`);
+            if (fileNode && (fileNode.type === NODE_TYPE.EXE)) {
+                if (fileNode.type === NODE_TYPE.EXE) {
+                    return fileNode.program;
                 }
             }
         }
-        return null;
+        const programNode = this.resolve(programName);
+        if (programNode && programNode.type === NODE_TYPE.EXE) {
+            return programNode.program;
+        }
     }
 
     resolve(path) {
@@ -182,7 +210,6 @@ class FileSystem {
             node = this.home;
             tokens.shift();
         }
-
         for (const token of tokens) {
             if (token === '' || token === '.') {
                 continue;
@@ -207,8 +234,73 @@ class FileSystem {
         return node;
     }
 
-    getLocationString() {
-        return this.wd.getDisplayPath();
+    autoResolveProgram(name) {
+        for (const path of PATH) {
+            const possibilities = this._getPossibilities(`${path}/${name}`);
+            if (possibilities.length === 1 && possibilities[0].type === NODE_TYPE.EXE) {
+                return `${possibilities[0].name} `;
+            }
+            const lcp = this._longestCommonPrefix(possibilities.map(node => node.name));
+            if (lcp) return lcp;
+        }
+        return null;
+    }
+
+    autoResolvePath(path) {
+        const possibilities = this._getPossibilities(path);
+        if (possibilities.length === 1) {
+            const resolved = possibilities[0];
+            return resolved.type === NODE_TYPE.DIR ? `${resolved.name}/` : `${resolved.name} `;
+        }
+        return this._longestCommonPrefix(possibilities.map(node => node.name));
+    }
+
+    getProgramPossibilities(name) {
+        for (const path of PATH) {
+            const possibilities = this._getPossibilities(`${path}/${name}`);
+            return possibilities.map(node => node.name);
+        }
+    }
+
+    getPathPossibilities(path) {
+        return this._getPossibilities(path).map(node => node.name);
+    }
+
+    _getPossibilities(path) {
+        const tokens = path.split('/');
+        const toComplete = tokens.pop();
+        let subPath = tokens.join('');
+        if (path.startsWith('/')) {
+            subPath = `/${subPath}`
+        }
+        const node = this.resolve(subPath);
+        if (!node) {
+            return [];
+        }
+        const possibilities = [];
+        for (const child of node.children) {
+            if (child.name.startsWith(toComplete)) {
+                possibilities.push(child);
+            }
+        }
+        return possibilities;
+    }
+
+    _longestCommonPrefix(strings) {
+        let lcp = null;
+        for (const s of strings) {
+            if (lcp === null) {
+                lcp = s;
+                continue;
+            }
+            for (let i = 0; i < lcp.length; ++i) {
+                if (s.charAt(i) !== lcp.charAt(i)) {
+                    lcp = lcp.substring(0, i);
+                    break;
+                }
+            }
+        }
+        return lcp;
     }
 }
 

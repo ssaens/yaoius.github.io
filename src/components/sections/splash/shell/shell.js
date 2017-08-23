@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import FileSystem from './filesystem';
+import { leftTrim } from '../../../../services/utils';
 import './shell.css';
 
 const SHELL_CONFIG = {
@@ -161,6 +162,19 @@ class InputLine extends Component {
         }
     }
 
+    _autoResolve() {
+        const currentInput = this.state.inputValue;
+        const resolved = this.props.autoResolve(currentInput, this.tabbed);
+        if (resolved) {
+            for (const c of resolved) {
+                this.state.currentBuffer.pushChar(c);
+            }
+            this.tabbed = false;
+            const inputValue = this.state.currentBuffer.toString();
+            this.setState({ inputValue });
+        }
+    }
+
     _handleKeydown = (e) => {
         if (e.metaKey) {
             return;
@@ -176,7 +190,9 @@ class InputLine extends Component {
         } else if (key === 'Enter') {
             this._consume();
         } else if (key === 'Tab') {
-
+            this._autoResolve();
+            this.tabbed = true;
+            e.preventDefault();
         } else if (key === 'ArrowLeft') {
             buffer.decrementCursor();
             shouldUpdate = true;
@@ -198,6 +214,7 @@ class InputLine extends Component {
         }
 
         if (shouldUpdate) {
+            this.tabbed = false;
             this.setState({
                 inputValue: buffer.toString(),
             });
@@ -217,7 +234,7 @@ class Shell extends Component {
             clear: () => this.clear(),
             reset: () => this.reset()
         };
-        this.state = { shouldUpdate: true };
+        this.state = { flush: true };
     }
 
     componentDidMount() {
@@ -229,12 +246,12 @@ class Shell extends Component {
             <div
                 className="shell"
                 ref={$ => this.$ = $}
-                key={this.i}
             >
                 {this.lines}
                 <InputLine
                     path={this.fs.getLocationString()}
-                    parse={ (line) => this.parse(line) }
+                    parse={(line) => this.parse(line)}
+                    autoResolve={(line, tabbed) => this.autoResolve(line, tabbed)}
                 />
             </div>
         );
@@ -252,9 +269,8 @@ class Shell extends Component {
             </shln>
         );
         this.lines.push(output);
-
-        if (line) {
-            const tokens = line.split(' ').filter(Boolean);
+        const tokens = line.split(' ').filter(Boolean);
+        if (tokens.length) {
             const programName = tokens.shift();
             const program = this.fs.resolveProgram(programName);
             if (program) {
@@ -263,27 +279,67 @@ class Shell extends Component {
                 this.sys(`${programName}: command not found`);
             }
         }
-        this.setState({ shouldUpdate: true });
+        this.flush();
+    }
+
+    autoResolve(line, displayPossibilities) {
+        const tokens = leftTrim(line).split(' ');
+        const toResolve = tokens.pop();
+        const isArg = tokens.length;
+        if (displayPossibilities) {
+            let possibilities;
+            if (isArg) {
+                possibilities = this.fs.getPathPossibilities(toResolve);
+            } else {
+                possibilities = this.fs.getProgramPossibilities(toResolve);
+            }
+            const path = this.fs.getLocationString();
+            const output = (
+                <shln key={this.lines.length}>
+                    <o>{SHELL_CONFIG.USER}</o>
+                    @<b>{SHELL_CONFIG.HOST}</b>:{path}> {line}
+                </shln>
+            );
+            this.lines.push(output);
+            this.lines.push(possibilities.join('\u00A0\u00A0'));
+            this.flush();
+        } else {
+            let result;
+            if (isArg) {
+                result = this.fs.autoResolvePath(toResolve);
+            } else {
+                result = this.fs.autoResolveProgram(toResolve);
+            }
+            if (result) {
+                const lastToken = toResolve.split('/').pop();
+                return result.substring(lastToken.length);
+            }
+        }
     }
 
     print(line) {
         this.lines.push(<shln key={this.lines.length}>{line}</shln>);
-        this.setState({ shouldUpdate: true });
+        this.flush();
     }
 
     sys(msg) {
-        this.lines.push(<shln key={this.lines.length}><sys>{SHELL_CONFIG.SYS_MSG}: </sys>{msg}</shln>)
+        this.lines.push(<shln key={this.lines.length}><sys>{SHELL_CONFIG.SYS_MSG}: </sys>{msg}</shln>);
+        this.flush();
     }
 
     clear() {
         this.lines = [];
-        this.setState({ shouldUpdate: true });
+        this.flush();
+    }
+
+    flush() {
+        this.setState({ flush: true });
     }
 
     reset() {
         this.lines = [];
         this.fs = new FileSystem();
-        this.setState({shouldUpdate: true});
+        this.flush();
         this.componentDidMount();
     }
 }

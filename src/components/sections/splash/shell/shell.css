@@ -11,6 +11,7 @@ div.shell {
 
 shln {
     display: block;
+    white-space: pre-wrap;
 }
 
 shln o {
