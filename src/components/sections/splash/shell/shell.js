@@ -125,21 +125,28 @@ class InputLine extends Component {
             inputValue: buffer.toJsx(),
             currentBuffer: buffer
         };
-        window.addEventListener('keydown', this._handleKeydown)
     }
 
     render() {
         return (
             <shln>
                 <user>{SHELL_CONFIG.USER}</user>@
-                <guest>{SHELL_CONFIG.HOST}</guest>
+                <host>{SHELL_CONFIG.HOST}</host>
                 {`:${this.props.path}> `}{this.state.inputValue}
             </shln>
         );
     }
 
+    componentDidMount() {
+        window.addEventListener('keydown', this._handleKeydown)
+    }
+
     componentWillUnmount() {
         window.removeEventListener('keydown', this._handleKeydown);
+    }
+
+    componentDidUpdate() {
+        this.props.align();
     }
 
     _clearBuffer() {
@@ -281,7 +288,7 @@ class Shell extends Component {
         const versionString = 0;
         const loadInfo = [
             <sys key="sys">*>> yaoshell</sys>,
-            'v0.0.0'
+            ' v0.0.0'
         ];
         const helpInfo = [
             '*>> type ',
@@ -303,6 +310,7 @@ class Shell extends Component {
                 <InputLine
                     path={this.fs.getLocationString()}
                     parse={(line) => this.parse(line)}
+                    align={() => this.componentDidUpdate()}
                     autoResolve={(line, tabbed) => this.autoResolve(line, tabbed)}
                 />
             </div>
@@ -310,7 +318,9 @@ class Shell extends Component {
     }
 
     componentDidUpdate() {
-        this.$.scrollTop = this.$.scrollHeight;
+        if (this.$) {
+            this.$.scrollTop = this.$.scrollHeight;
+        }
     }
 
     parse(line) {
@@ -318,7 +328,7 @@ class Shell extends Component {
         const output = (
             <shln key={this.lines.length}>
                 <user>{SHELL_CONFIG.USER}</user>@
-                <guest>{SHELL_CONFIG.HOST}</guest>:{path}> {line}
+                <host>{SHELL_CONFIG.HOST}</host>:{path}> {line}
             </shln>
         );
         this.lines.push(output);
@@ -349,8 +359,8 @@ class Shell extends Component {
             const path = this.fs.getLocationString();
             const output = (
                 <shln key={this.lines.length}>
-                    <user>{SHELL_CONFIG.USER}</user>
-                    @<guest>{SHELL_CONFIG.HOST}</guest>:{path}> {line}
+                    <user>{SHELL_CONFIG.USER}</user>@
+                    <host>{SHELL_CONFIG.HOST}</host>:{path}> {line}
                 </shln>
             );
             this.lines.push(output);

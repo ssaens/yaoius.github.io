@@ -17,4 +17,17 @@ nav.open {
 .navigation-toggle {
     position: fixed;
     margin-left: 0;
+    transition: ease-out 0.5s;
+}
+
+.navigation-toggle.active {
+    margin-left: 300px;
+}
+
+.nav-button {
+    border: 1px solid black;
+}
+
+.nav-button.active {
+    color: red;
 }

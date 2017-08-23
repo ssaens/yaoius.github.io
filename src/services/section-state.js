@@ -18,12 +18,14 @@ class SectionService {
     }
 
     _onScroll(offset) {
-        const sections = document.getElementsByClassName('section');
+        offset += 200;
+        const sections = document.getElementsByClassName('full-section');
         for (const section of sections) {
             const offsetTop = section.offsetTop;
             if (offsetTop <= offset && offset < offsetTop + section.clientHeight) {
                 if (this.currentSection !== section) {
                     this._onSectionChange(section.getAttribute('id'));
+                    this.currentSection = section;
                 }
                 return;
             }

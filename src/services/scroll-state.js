@@ -20,6 +20,7 @@ class ScrollService {
 
     attach() {
         window.addEventListener('scroll', () => { this._onScroll() }, { passive: true });
+        this._onScroll();
     }
 
     addCallback(cb) {
@@ -56,7 +57,7 @@ class ScrollService {
                 return;
             }
             const stepTarget = easeFunction(elapsed, scrollStart, deltaScroll, duration);
-            window.scrollTo(0, stepTarget);
+            window.scrollTo(0, Math.round(stepTarget));
             window.requestAnimationFrame(step);
         };
         this._animationFrame = window.requestAnimationFrame(step);

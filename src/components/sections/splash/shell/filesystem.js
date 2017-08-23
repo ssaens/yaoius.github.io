@@ -143,6 +143,7 @@ const PROGRAMS = {
         const target = args[0];
         if (!target) {
             out.sys(`cat: No target`);
+            return;
         }
         const node = fs.resolve(target);
         if (!node) {
@@ -166,6 +167,11 @@ const PROGRAMS = {
 
     reset(args, fs, out) {
         out.reset();
+    },
+
+    help(args, fs, out) {
+        const programs = fs.getProgramPossibilities('');
+        out.print(programs.join('\u00A0\u00A0'));
     }
 };
 
@@ -275,7 +281,7 @@ class FileSystem {
             const possibilities = this._getPossibilities(`${path}/${name}`);
             allPossible.push(...possibilities);
         }
-        return allPossible;
+        return allPossible.map(node => node.name);
     }
 
     getPathPossibilities(path) {

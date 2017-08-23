@@ -14,7 +14,10 @@ class App extends Component {
         return (
             <div className="app-root">
                 <Navigation/>
-                <Section id='splash' component={SectionSplash}/>
+                <Section id="splash" component={SectionSplash}/>
+                <Section id="about" component={SectionAbout}/>
+                <Section id="experience" component={SectionExperience}/>
+                <Section id="projects" component={SectionProjects}/>
                 <Footer/>
             </div>
         );
