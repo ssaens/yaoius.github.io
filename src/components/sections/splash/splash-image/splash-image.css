@@ -1,0 +1,15 @@
+.splash-image-container {
+  width: 300px;
+  height: 300px;
+  position: relative;
+}
+
+.splash-image {
+  height: 100%;
+  width: 100%;
+}
+
+.hex {
+  stroke: #000;
+  stroke-width: 1;
+}

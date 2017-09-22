@@ -41,10 +41,42 @@ function keyedJSXList(list) {
     return keyed;
 }
 
+function makeRequest(method, url) {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open(method, url);
+        xhr.onload = function () {
+            if (this.status >= 200 && this.status < 300) {
+                resolve(xhr.response);
+            } else {
+                reject({
+                    status: this.status,
+                    statusText: xhr.statusText
+                });
+            }
+        };
+        xhr.onerror = function () {
+            reject({
+                status: this.status,
+                statusText: xhr.statusText
+            });
+        };
+        xhr.send();
+    });
+}
+
+function fetchJson(url) {
+    return makeRequest('GET', url).then(data => {
+        return JSON.parse(data);
+    });
+}
+
 export {
     strip,
     leftTrim,
     longestCommonPrefix,
     normalizeSpaces,
-    keyedJSXList
+    keyedJSXList,
+    makeRequest,
+    fetchJson
 }

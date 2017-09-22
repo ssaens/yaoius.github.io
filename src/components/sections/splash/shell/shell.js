@@ -114,6 +114,7 @@ class LineBuffer {
     }
 }
 
+let nextId = 0;
 class InputLine extends Component {
     constructor(props) {
         super(props);
@@ -122,6 +123,7 @@ class InputLine extends Component {
         const buffer = new LineBuffer();
         this.bufferChain = { buffer };
         this.state = {
+            id: nextId++,
             inputValue: buffer.toJsx(),
             currentBuffer: buffer
         };
@@ -223,7 +225,7 @@ class InputLine extends Component {
     }
 
     _handleKeydown = (e) => {
-        if (e.metaKey) {
+        if (!this.props.focused || e.metaKey) {
             return;
         }
 
@@ -249,8 +251,10 @@ class InputLine extends Component {
             shouldUpdate = true;
         } else if (key === 'ArrowUp') {
             this._lastBuffer();
+            e.preventDefault();
         } else if (key === 'ArrowDown') {
             this._nextBuffer();
+            e.preventDefault();
         } else if (key === 'Backspace') {
             buffer.popChar();
             shouldUpdate = true;
@@ -281,10 +285,15 @@ class Shell extends Component {
             clear: () => this.clear(),
             reset: () => this.reset()
         };
-        this.state = { flush: true };
+        this.state = {
+            flush: true,
+            hasFocus: true
+        };
     }
 
     componentDidMount() {
+        window.addEventListener('click', this._onClick);
+
         const versionString = 0;
         const loadInfo = [
             <sys key="sys">*>> yaoshell</sys>,
@@ -297,17 +306,20 @@ class Shell extends Component {
         ];
         this.print(loadInfo);
         this.print(helpInfo);
-        this.parse('cat README.md');
+        this.parse('cat README.txt');
     }
 
     render() {
+        const focusStyle = this.state.hasFocus ? null : { opacity: 0.5 };
         return (
             <div
                 className="shell"
+                style={focusStyle}
                 ref={$ => this.$ = $}
             >
                 {this.lines}
                 <InputLine
+                    focused={this.state.hasFocus}
                     path={this.fs.getLocationString()}
                     parse={(line) => this.parse(line)}
                     align={() => this.componentDidUpdate()}
@@ -321,6 +333,21 @@ class Shell extends Component {
         if (this.$) {
             this.$.scrollTop = this.$.scrollHeight;
         }
+    }
+
+    _onClick = (e) => {
+        if (this.programContext) {
+            return;
+        }
+        if (this.$.contains(e.target) && !this.state.hasFocus) {
+            this.setState({hasFocus: true});
+        } else if (!this.$.contains(e.target) && this.state.hasFocus) {
+            this.setState({hasFocus: false});
+        }
+    };
+
+    componentWillUnmount() {
+        window.removeEventListener('click', this._onClick);
     }
 
     parse(line) {
@@ -337,7 +364,9 @@ class Shell extends Component {
             const programName = tokens.shift();
             const program = this.fs.resolveProgram(programName);
             if (program) {
+                this.programContext = true;
                 program(tokens, this.fs, this.out);
+                this.programContext = false;
             } else {
                 this.sys(`${programName}: command not found`);
             }
@@ -355,6 +384,9 @@ class Shell extends Component {
                 possibilities = this.fs.getPathPossibilities(toResolve);
             } else {
                 possibilities = this.fs.getProgramPossibilities(toResolve);
+            }
+            if (!possibilities.length) {
+                return;
             }
             const path = this.fs.getLocationString();
             const output = (
@@ -381,6 +413,9 @@ class Shell extends Component {
     }
 
     print(line) {
+        if (!line || (Array.isArray(line) && !line.length)) {
+            return;
+        }
         this.lines.push(<shln key={this.lines.length}>{line}</shln>);
         this.flush();
     }

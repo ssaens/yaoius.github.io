@@ -1,12 +1,10 @@
-div.shell {
-    position: absolute;
-    right: 20%;
-    top: 20%;
+.shell {
     width: 600px;
-    height: 12em;
-    overflow-y: hidden;
+    height: 20em;
+    overflow-y: auto;
     border: 1px solid black;
-    font-family: "Courier New", monospace;
+    font-family: monospace;
+    transition: opacity 0.5s ease;
 }
 
 shln {

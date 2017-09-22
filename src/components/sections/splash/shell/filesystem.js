@@ -1,5 +1,10 @@
 import React from 'react';
+import ypm from '../../../../services/ypm-service';
 import { longestCommonPrefix } from '../../../../services/utils';
+
+const sha256 = require('hash.js/lib/hash/sha/256');
+
+const ROOT_KEY = '96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7';
 
 const NODE_TYPE = {
     DIR: 'dir',
@@ -8,7 +13,8 @@ const NODE_TYPE = {
 };
 
 const PATH = [
-    '/.bin'
+    '/.bin',
+    '/.ypm_modules'
 ];
 
 class FileSystemNode {
@@ -71,13 +77,14 @@ class FileNode extends FileSystemNode {
 }
 
 class ExeNode extends FileSystemNode {
-    constructor(name, program) {
+    constructor(name, program, repr) {
         super(NODE_TYPE.EXE, name);
         this.program = program;
+        this.repr = repr || program.toString();
     }
 
     toString() {
-        return this.program.toString();
+        return this.repr;
     }
 }
 
@@ -172,25 +179,49 @@ const PROGRAMS = {
     help(args, fs, out) {
         const programs = fs.getProgramPossibilities('');
         out.print(programs.join('\u00A0\u00A0'));
-    }
+    },
+
+    dev(args, fs, out) {
+        if (sha256().update(args).digest('hex') === ROOT_KEY) {
+            out.print('authenticated');
+        } else {
+            out.print('password invalid');
+            out.print('This incident will be reported');
+        }
+    },
+
+    ypm
 };
 
 const HOME = new DirNode('guest', [
-    new DirNode('about'),
-    new DirNode('experience'),
-    new DirNode('projects'),
-    new FileNode(
-        'README.md',
+    new DirNode('about', [
+        new FileNode('about.txt',
+            'TODO: Insert about text'
+        )
+    ]),
+    new DirNode('experience', [
+        new FileNode('experience.txt',
+            'TODO: Add experience'
+        )
+    ]),
+    new DirNode('projects', [
+        new FileNode('projects.txt',
+            'TODO: Add projects'
+        )
+    ]),
+    new FileNode('README.txt',
         [
             'Hello',
             <b key="b">Dillon Yao</b>,
             'There'
         ]
-    )
+    ),
+    new DirNode('.stuff')
 ]);
 
 const ROOT = new DirNode('', [
     new DirNode('.bin', Object.entries(PROGRAMS).map(([name, program]) => new ExeNode(name, program))),
+    new DirNode('.ypm_modules'),
     new DirNode('Users', [
         HOME,
     ])
@@ -275,6 +306,22 @@ class FileSystem {
         return longestCommonPrefix(possibilities.map(node => node.name));
     }
 
+    createNode(type, parent, name, ...args) {
+        const path = this.resolve(parent);
+        if (!path) {
+            return;
+        }
+        let node;
+        if (type === NODE_TYPE.DIR) {
+            node = new DirNode(name, ...args);
+        } else if (type === NODE_TYPE.FILE) {
+            node = new FileNode(name, ...args);
+        } else if (type === NODE_TYPE.EXE) {
+            node = new ExeNode(name, ...args);
+        }
+        path.children.push(node);
+    }
+
     getProgramPossibilities(name) {
         const allPossible = [];
         for (const path of PATH) {
@@ -309,6 +356,9 @@ class FileSystem {
     }
 }
 
-
+export {
+    NODE_TYPE,
+    FileSystem
+}
 
 export default FileSystem;
