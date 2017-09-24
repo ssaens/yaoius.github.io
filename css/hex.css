@@ -170,6 +170,27 @@ header div.col {
     padding: 0;
 }
 
+#home #alert {
+    color: white;
+    border-bottom: solid 1px white;
+    border-top: solid 1px white;
+    margin-top: 106px;
+    position: absolute;
+    padding: 20px 12%;
+    left: 0;
+    top: 0;
+    right: 0;
+}
+
+#home #alert .close {
+    cursor: pointer;
+}
+
+#home #alert .close:hover {
+    cursor: pointer;
+    color: rgb(253, 148, 8);
+}
+
 /* ==SHELL== */
 shell {
     position: absolute;

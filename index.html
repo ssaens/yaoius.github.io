@@ -41,8 +41,19 @@
 
     <!--Splash-->
     <div id='home' class='sec'>
+        <div id='alert'>
+            <span style='color: rgb(253, 148, 8)'>Alert:</span> This site's a bit under-loved right now due to school, but a newer and better React version is in the works!
+            <span class='close' style='float: right' onclick='closeAlert()'>x</span>
+        </div>
         <shell></shell>
     </div>
+
+    <script>
+        function closeAlert() {
+            const alert = document.getElementById('alert');
+            alert.remove();
+        }
+    </script>
 
     <!--About-->
     <div id='about' class='sec'>
@@ -55,9 +66,7 @@
         </div>
         <div class='col'>
             <div class='container'>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent blandit eu sem in sodales. Donec at finibus nulla, in ornare eros. Nullam ac rutrum turpis, id dictum nulla. Nam posuere varius sodales. Vestibulum blandit id elit vel eleifend. Etiam arcu risus, fringilla at tempor non, maximus et purus. Nullam vel consectetur urna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-
-Sed vel urna tempor, fringilla magna et, accumsan enim. Nulla pulvinar ut nisl eget blandit. Nullam ultricies neque quis ex convallis cursus. Nam tristique tempus ex. Aenean vestibulum egestas pharetra. In hac habitasse platea dictumst. Nam quis finibus leo. Integer sit amet faucibus erat, sed aliquam nisi.</p>
+            <p>I'm a third year EECS student studying at the UC Berkeley. I like making things.</p>
             </div>
         </div>
     </div>
@@ -73,7 +82,10 @@ Sed vel urna tempor, fringilla magna et, accumsan enim. Nulla pulvinar ut nisl e
         </div>
         <div class='col'>
             <div class='container'>
-                <p>Comming Soon</p>
+                <div class='project-tile'>
+                    <div class='project-title'>BPD Fluid Simulator</div>
+                    <a class='project-link' href='flooid'>Project Webpage</a>
+                </div>
             </div>
         </div>
     </div>
