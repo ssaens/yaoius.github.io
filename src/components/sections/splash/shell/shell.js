@@ -17,6 +17,7 @@ const SHELL_CONFIG = {
 class LineBuffer {
     constructor() {
         this.sentinel = { value: ' ' };
+        this.length = 0;
         this.clearContent();
     }
 
@@ -83,6 +84,7 @@ class LineBuffer {
         node.prev.next = node;
         node.next.prev = node;
         this.cursor = node;
+        ++this.length;
         this._invalidateCache();
     }
 
@@ -91,6 +93,7 @@ class LineBuffer {
         cursor.prev.next = cursor.next;
         cursor.next.prev = cursor.prev;
         this.cursor = cursor.prev;
+        --this.length;
         this._invalidateCache();
     }
 
@@ -130,6 +133,9 @@ class InputLine extends Component {
     }
 
     render() {
+        if (this.props.awaitingInput) {
+            return null;
+        }
         return (
             <shln>
                 <user>{SHELL_CONFIG.USER}</user>@
@@ -225,7 +231,7 @@ class InputLine extends Component {
     }
 
     _handleKeydown = (e) => {
-        if (!this.props.focused || e.metaKey) {
+        if (!this.props.focused || e.metaKey || this.props.blocking) {
             return;
         }
 
@@ -246,7 +252,6 @@ class InputLine extends Component {
             buffer.decrementCursor();
             shouldUpdate = true;
         } else if (key === 'ArrowRight') {
-            const buffer = this.state.currentBuffer;
             buffer.incrementCursor();
             shouldUpdate = true;
         } else if (key === 'ArrowUp') {
@@ -279,15 +284,19 @@ class Shell extends Component {
         super(props);
         this.lines = [];
         this.fs = new FileSystem();
-        this.out = {
-            print: (line) => this.print(line),
-            sys: (line) => this.sys(line),
+        this.io = {
+            print: (s) => this.print(s),
+            println: (s) => this.println(s),
+            sys: (s) => this.sys(s),
+            input: (secure) => this.input(secure),
             clear: () => this.clear(),
             reset: () => this.reset()
         };
         this.state = {
             flush: true,
-            hasFocus: true
+            hasFocus: true,
+            blocking: false,
+            redirectIn: false
         };
     }
 
@@ -310,7 +319,7 @@ class Shell extends Component {
     }
 
     render() {
-        const focusStyle = this.state.hasFocus ? null : { opacity: 0.5 };
+        const focusStyle = this.state.hasFocus ? null : { opacity: 0.8, filter: 'blur(1px)' };
         return (
             <div
                 className="shell"
@@ -320,6 +329,8 @@ class Shell extends Component {
                 {this.lines}
                 <InputLine
                     focused={this.state.hasFocus}
+                    blocking={this.state.blocking}
+                    awaitingInput={this.awaitingInput}
                     path={this.fs.getLocationString()}
                     parse={(line) => this.parse(line)}
                     align={() => this.componentDidUpdate()}
@@ -336,7 +347,7 @@ class Shell extends Component {
     }
 
     _onClick = (e) => {
-        if (this.programContext) {
+        if (this.blocking) {
             return;
         }
         if (this.$.contains(e.target) && !this.state.hasFocus) {
@@ -364,9 +375,13 @@ class Shell extends Component {
             const programName = tokens.shift();
             const program = this.fs.resolveProgram(programName);
             if (program) {
-                this.programContext = true;
-                program(tokens, this.fs, this.out);
-                this.programContext = false;
+                this.setState({blocking: true});
+                program(tokens, this.fs, this.io).then((ret=0) => {
+                    if (ret) {
+                        this.println(ret);
+                    }
+                    this.setState({blocking: false});
+                });
             } else {
                 this.sys(`${programName}: command not found`);
             }
@@ -412,17 +427,71 @@ class Shell extends Component {
         }
     }
 
-    print(line) {
-        if (!line || (Array.isArray(line) && !line.length)) {
+    print(s) {
+        // TODO: Same line print
+    }
+
+    println(s) {
+        if (!s || (Array.isArray(s) && !s.length)) {
             return;
         }
-        this.lines.push(<shln key={this.lines.length}>{line}</shln>);
+        this.lines.push(<shln key={this.lines.length}>{s}</shln>);
         this.flush();
     }
 
     sys(msg) {
         this.lines.push(<shln key={this.lines.length}><sys>{SHELL_CONFIG.SYS_MSG}: </sys>{msg}</shln>);
         this.flush();
+    }
+    
+    input(secure=false) {
+        const buf = new LineBuffer();
+        const lbuf = new LineBuffer();
+        const bufIndex = this.lines.length;
+        this.lines.push(<shln key={bufIndex}>{buf.toJsx()}</shln>);
+        this.awaitingInput = true;
+        this.flush();
+        return new Promise(resolve => {
+            const keyListener = (e) => {
+                if (!this.state.hasFocus || e.metaKey) {
+                    return;
+                }
+                const key = e.key;
+                let shouldUpdate = false;
+
+                if (key.length === 1) {
+                    buf.pushChar(secure ? '*' : key);
+                    lbuf.pushChar(key);
+                    shouldUpdate = true;
+                } else if (key === 'ArrowLeft') {
+                    buf.decrementCursor();
+                    lbuf.decrementCursor();
+                    shouldUpdate = true;
+                } else if (key === 'ArrowRight') {
+                    buf.incrementCursor();
+                    lbuf.incrementCursor();
+                    shouldUpdate = true;
+                } else if (key === 'Backspace') {
+                    buf.popChar();
+                    lbuf.popChar();
+                    shouldUpdate = true;
+                } else if (key === 'Enter') {
+                    this.lines[bufIndex] = <shln key={bufIndex}>{buf.toString() || '\n'}</shln>;
+                    window.removeEventListener('keydown', keyListener);
+                    this.awaitingInput = false;
+                    resolve(lbuf.toString());
+                }
+                if (key === ' ') {
+                    e.preventDefault();
+                }
+
+                if (shouldUpdate) {
+                    this.lines[bufIndex] = <shln key={bufIndex}>{buf.toJsx()}</shln>;
+                    this.flush();
+                }
+            };
+            window.addEventListener('keydown', keyListener);
+        });
     }
 
     clear() {

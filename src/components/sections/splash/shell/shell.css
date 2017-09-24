@@ -3,8 +3,9 @@
     height: 20em;
     overflow-y: auto;
     border: 1px solid black;
-    font-family: monospace;
-    transition: opacity 0.5s ease;
+    font-family: 'Ubuntu Mono', monospace;
+    transition: 0.2s ease;
+    letter-spacing: 1px;
 }
 
 shln {
@@ -14,14 +15,8 @@ shln {
     --color-sys: yellow;
     --color-host: orange;
     --color-user: blue;
-}
-
-shln color-o {
-    color: orange;
-}
-
-shln color-b {
-    color: blue;
+    --color-dir: green;
+    --color-exe: red;
 }
 
 shln sys {
@@ -37,11 +32,11 @@ shln host {
 }
 
 shln exe {
-
+    color: var(--color-exe);
 }
 
 shln direc {
-
+    color: var(--color-dir);
 }
 
 shln crsr {

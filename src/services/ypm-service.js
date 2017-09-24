@@ -33,7 +33,9 @@ class YpmService {
                     data,
                     version,
                     name: name
-                }
+                };
+            }).catch(error => {
+                return Promise.reject(`Error in fetching module ${name} v${version}`);
             });
         });
     }
@@ -48,89 +50,114 @@ class Ypm {
         this.ypm = new YpmService();
     }
 
-    main(args, fs, out) {
+    main(resolve, args, fs, io) {
         this.modulesDir = fs.resolve(MODULE_DIR);
-        this.modules = { fs, out };
+        this.resolve = resolve;
+        this.modules = this.modules || { fs, io };
         if (args[0] === 'list') {
             this.list(args);
+            resolve();
         } else if (args[0] === 'search') {
             this.search(args);
         } else if (args[0] === 'install' || args[0] === 'i') {
             this.install(args);
+            resolve();
         } else if (args[0] === 'help') {
             this.help();
+            resolve();
+        } else {
+            resolve();
         }
     }
 
     help() {
-        const { out } = this.modules;
-        out.print('usage:');
+        const { io } = this.modules;
+        io.println('usage:');
     }
 
     list(args) {
-        const { out } = this.modules;
+        const { io } = this.modules;
         const modules = this.modulesDir.children;
-        out.print(modules.map(node => node.name));
+        io.println(modules.map((node, i) => <exe key={i}>{node.name}</exe>));
     }
 
     search(args) {
-        const { out } = this.modules;
-        out.print("Available packages:");
+        const { io } = this.modules;
+        io.print("Available packages:");
         this.ypm.fetchPackageList().then(list => {
             for (const p of Object.keys(list)) {
-                out.print(p);
+                io.println(p);
             }
+            this.resolve();
         }).catch(error => {
-            out.print("Error in fetching register");
+            io.print("Error in fetching register");
+            this.resolve();
         });
-        // this.wait();
     }
 
     install(args) {
-        const { out } = this.modules;
+        const { io } = this.modules;
         const name = args[1];
         if (!name) {
             this.help();
+            this.resolve();
             return;
         }
-        out.print('fetching package...');
+        io.println('fetching package...');
         this.ypm.fetchPackage(name).then(p => {
-            out.print('installing...');
+            io.println('installing...');
             this._installPackage(p.name, p.data);
-            out.print(`installed package ${p.name} v${p.version}`);
+            io.println(`installed package ${p.name} v${p.version}`);
+            this.resolve();
         }).catch(error => {
-            out.print(error);
+            io.println(error.toString());
+            this.resolve();
         });
-        // this.wait();
     }
 
     _installPackage(name, src) {
-        let __main__ = null;
-        const include = (module) => this._include(module);
-        const closure = `(function() { const out = include('out'); ${src} __main__ = main; })()`;
-        eval(closure);
+        let __main__ = null, __exports__ = null;
+        const include = (module) => this._include(module, name);
+        const code = `(function() {
+            const io = include('io');
+            let resolve, exports;
+            ${src}
+            if (main) {
+                __main__ = (__resolve, args) => {
+                    resolve = __resolve;
+                    main(args);
+                }; 
+            }
+            if (exports) {
+                __exports__ = exports;
+            }
+        })()`;
+        eval(code);
 
-        const { fs } = this.modules;
-        fs.createNode(NODE_TYPE.EXE, MODULE_DIR, name, __main__, src);
+        if (__main__) {
+            const { fs } = this.modules;
+            fs.createNode(NODE_TYPE.EXE, MODULE_DIR, name, __main__, src);
+        }
+        if (__exports__) {
+            this.modules[name] = __exports__;
+        } else {
+            this.modules[name] = null;
+        }
     }
 
-    _include(name) {
+    _include(name, parent) {
         const module = this.modules[name];
-        if (!module) {
-            // TODO
+        const { io } = this.modules;
+        if (module === null) {
+            io.println(`Module ${name} has no exports defined`);
+        } else if (!module) {
+            io.println(`Module ${parent} requires an include of ${name}`);
         }
         return module;
-    }
-
-    wait() {
-        // console.log(this.working);
-        // while (this.working) {
-        //     console.log(this.working);
-        // }
     }
 }
 
 const ypmManager = new Ypm();
-const ypm = (args, fs, out) => ypmManager.main(args, fs, out);
+const ypm = (resolve, args, fs, io) => ypmManager.main(resolve, args, fs, io);
 
 export default ypm;

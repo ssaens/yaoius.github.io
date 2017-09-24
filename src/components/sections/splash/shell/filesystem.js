@@ -4,7 +4,7 @@ import { longestCommonPrefix } from '../../../../services/utils';
 
 const sha256 = require('hash.js/lib/hash/sha/256');
 
-const ROOT_KEY = '96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7';
+const ROOT_KEY = 'd9748af994f492fea9e115460d30289721618d198791d121bb5c6e88ce5448ce';
 
 const NODE_TYPE = {
     DIR: 'dir',
@@ -79,8 +79,16 @@ class FileNode extends FileSystemNode {
 class ExeNode extends FileSystemNode {
     constructor(name, program, repr) {
         super(NODE_TYPE.EXE, name);
-        this.program = program;
+        this.program = this._promisifyProgram(program);
         this.repr = repr || program.toString();
+    }
+
+    _promisifyProgram(p) {
+        return function(...args) {
+            return new Promise((resolve) => {
+                p(resolve, ...args);
+            }).catch(error => error.toString());
+        };
     }
 
     toString() {
@@ -89,106 +97,159 @@ class ExeNode extends FileSystemNode {
 }
 
 const PROGRAMS = {
-    pwd(args, fs, out) {
-        out.print(fs.wd.getAbsolutePath());
+    pwd(resolve, args, fs, io) {
+        io.println(fs.wd.getAbsolutePath());
+        resolve();
     },
 
-    la(args, fs, out) {
+    la(resolve, args, fs, io) {
         let node = fs.wd;
         if (args && args[0]) {
             let resolvedNode = fs.resolve(args[0]);
             if (!resolvedNode) {
-                out.sys(`ls: ${args[0]}: No such file or directory`);
+                io.sys(`ls: ${args[0]}: No such file or directory`);
+                resolve();
                 return;
             }
             if (resolvedNode.type !== NODE_TYPE.DIR) {
-                out.print(args[0]);
+                io.println(args[0]);
+                resolve();
                 return;
             }
             node = resolvedNode;
         }
-        out.print(node.children
-            .map(child => child.name)
-            .join('\u00A0\u00A0'));
+        const list = [];
+        for (const c of node.children) {
+            let name = c.name;
+            if (c.type === NODE_TYPE.DIR) {
+                name = <direc key={list.length}>{name}</direc>;
+            } else if (c.type === NODE_TYPE.EXE) {
+                name = <exe key={list.length}>{name}</exe>;
+            }
+            list.push(name);
+            list.push('\u00A0\u00A0');
+        }
+        io.println(list);
+        resolve();
     },
 
-    ls(args, fs, out) {
+    ls(resolve, args, fs, io) {
         let node = fs.wd;
         if (args && args[0]) {
             let resolvedNode = fs.resolve(args[0]);
             if (!resolvedNode) {
-                out.sys(`ls: ${args[0]}: No such file or directory`);
+                io.sys(`ls: ${args[0]}: No such file or directory`);
+                resolve();
                 return;
             }
             if (resolvedNode.type !== NODE_TYPE.DIR) {
-                out.print(args[0]);
+                io.println(args[0]);
+                resolve();
                 return;
             }
             node = resolvedNode;
         }
-        out.print(node.children
-            .filter(child => !child.name.startsWith('.'))
-            .map(child => child.name)
-            .join('\u00A0\u00A0'));
+        const visible = node.children.filter(child => !child.name.startsWith('.'));
+        const list = [];
+        for (const c of visible) {
+            let name = c.name;
+            if (c.type === NODE_TYPE.DIR) {
+                name = <direc key={list.length}>{name}</direc>;
+            } else if (c.type === NODE_TYPE.EXE) {
+                name = <exe key={list.length}>{name}</exe>;
+            }
+            list.push(name);
+            list.push('\u00A0\u00A0');
+        }
+        io.println(list);
+        resolve();
     },
 
-    cd(args, fs, out) {
+    cd(resolve, args, fs, io) {
         const target = args[0] || '~';
         const node = fs.resolve(target);
         if (!node) {
-            out.sys(`cd: ${target}: No such file or directory`);
+            io.sys(`cd: ${target}: No such file or directory`);
+            resolve();
             return;
         }
         if (node.type !== NODE_TYPE.DIR) {
-            out.sys(`cd: ${target}: Not a directory`);
+            io.sys(`cd: ${target}: Not a directory`);
+            resolve();
             return;
         }
         fs.wd = node;
+        resolve();
     },
 
-    cat(args, fs, out) {
+    cat(resolve, args, fs, io) {
         const target = args[0];
         if (!target) {
-            out.sys(`cat: No target`);
+            io.sys(`cat: No target`);
+            resolve();
             return;
         }
         const node = fs.resolve(target);
         if (!node) {
-            out.sys(`cat: ${target}: No such file or directory`);
+            io.sys(`cat: ${target}: No such file or directory`);
+            resolve();
             return;
         }
         if (node.type === NODE_TYPE.DIR) {
-            out.sys(`cat: ${target}: Is a directory`);
+            io.sys(`cat: ${target}: Is a directory`);
+            resolve();
             return;
         }
-        out.print(node.toString());
+        io.println(node.toString());
+        resolve();
     },
 
-    echo(args, fs, out) {
-        out.print(args.join(' '));
+    echo(resolve, args, fs, io) {
+        io.println(args.join(' '));
+        resolve();
     },
 
-    clear(args, fs, out) {
-        out.clear();
+    clear(resolve, args, fs, io) {
+        io.clear();
+        resolve();
     },
 
-    reset(args, fs, out) {
-        out.reset();
+    reset(resolve, args, fs, io) {
+        io.reset();
+        resolve();
     },
 
-    help(args, fs, out) {
+    help(resolve, args, fs, io) {
         const programs = fs.getProgramPossibilities('');
-        out.print(programs.join('\u00A0\u00A0'));
+        io.println(programs.join('\u00A0\u00A0'));
+        resolve();
     },
 
-    dev(args, fs, out) {
-        if (sha256().update(args).digest('hex') === ROOT_KEY) {
-            out.print('authenticated');
-        } else {
-            out.print('password invalid');
-            out.print('This incident will be reported');
+    dev: (function() {
+        let attempts = 0;
+        return function(resolve, args, fs, io) {
+            if (attempts > 3) {
+                io.println('Password attempts exceeded');
+                resolve();
+                return;
+            }
+            io.println('Enter Passcode:');
+            io.input(true).then(input => {
+                if (sha256().update(input).digest('hex') === ROOT_KEY) {
+                    attempts = 0;
+                    io.sys('Authenticated. Starting dev mode...');
+                    io.println('Done. Welcome!');
+                } else {
+                    ++attempts;
+                    io.sys('Password invalid.');
+                    if (attempts > 3) {
+                        io.sys('Password attempts exceeded. Sending incident report.');
+                    }
+                }
+                resolve();
+            });
         }
-    },
+    })(),
 
     ypm
 };
@@ -211,9 +272,8 @@ const HOME = new DirNode('guest', [
     ]),
     new FileNode('README.txt',
         [
-            'Hello',
-            <b key="b">Dillon Yao</b>,
-            'There'
+            <user>Hi there,</user>,
+            ' take a look around'
         ]
     ),
     new DirNode('.stuff')
@@ -238,11 +298,13 @@ class FileSystem {
     }
 
     resolveProgram(programName) {
-        for (const path of PATH) {
-            const fileNode = this.resolve(`${path}/${programName}`);
-            if (fileNode && (fileNode.type === NODE_TYPE.EXE)) {
-                if (fileNode.type === NODE_TYPE.EXE) {
-                    return fileNode.program;
+        if (programName.indexOf('/') < 0) {
+            for (const path of PATH) {
+                const fileNode = this.resolve(`${path}/${programName}`);
+                if (fileNode && (fileNode.type === NODE_TYPE.EXE)) {
+                    if (fileNode.type === NODE_TYPE.EXE) {
+                        return fileNode.program;
+                    }
                 }
             }
         }
